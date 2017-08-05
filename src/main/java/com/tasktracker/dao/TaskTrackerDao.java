@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.tasktracker.model.Employees;
 
-public class TaskServiceDao {
+public class TaskTrackerDao {
 //	private static final String DRIVER_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 //	private static final String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=ca";
 //	private static final String ID = "sa";
@@ -25,9 +25,9 @@ public class TaskServiceDao {
 	
 	// MySQL
 	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost/ca";
-	private static final String ID = "root";
-	private static final String PASS = "";
+	private static final String DB_URL = "jdbc:mysql://mastan.ct5jg6x9mvrp.us-east-1.rds.amazonaws.com:3306/mastan";
+	private static final String ID = "mastan";
+	private static final String PASS = "mastanbaba";
 	
 	// PostgreSQL
 //	private static final String DRIVER_NAME = "org.postgresql.Driver";
@@ -35,12 +35,13 @@ public class TaskServiceDao {
 //	private static final String ID = "postgres";
 //	private static final String PASS = "postgres";
 	
-	private static final String DELETE = "DELETE FROM employee WHERE id=?";
-	private static final String FIND_ALL = "SELECT * FROM employee ORDER BY id";
-	private static final String FIND_BY_ID = "SELECT * FROM employee WHERE id=?";
-	private static final String FIND_BY_NAME = "SELECT * FROM employee WHERE name=?";
-	private static final String INSERT = "INSERT INTO employee(name) VALUES(?)";
-	private static final String UPDATE = "UPDATE employee SET name=? WHERE id=?";
+	private static final String DELETE = "DELETE FROM Employee WHERE id=?";
+	private static final String FIND_ALL = "SELECT * FROM Employee ORDER BY id";
+	private static final String MAX_ID = "SELECT MAX(ID) FROM Employee";
+	private static final String FIND_BY_ID = "SELECT * FROM Employee WHERE id=?";
+	private static final String FIND_BY_NAME = "SELECT * FROM Employee WHERE name=?";
+	private static final String INSERT = "INSERT INTO Employee(id,name) VALUES(?,?)";
+	private static final String UPDATE = "UPDATE Employee SET name=? WHERE id=?";
 	
 	
 	public int delete(int id) {
@@ -74,7 +75,7 @@ public class TaskServiceDao {
 			
 			while (rs.next()) {
 				Employees employee = new Employees();
-				employee.setId(rs.getString("id"));
+				employee.setId(rs.getInt("id")+"");
 				employee.setName(rs.getString("name"));
 				list.add(employee);
 			}
@@ -87,6 +88,30 @@ public class TaskServiceDao {
 		}
 		
 		return list;
+	}
+	
+	public Integer findMaxId() {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int maxId= 0;
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(MAX_ID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				maxId = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+		
+		return maxId;
 	}
 	
 	public Employees findById(int id) {
@@ -125,12 +150,11 @@ public class TaskServiceDao {
 			conn = getConnection();
 			stmt = conn.prepareStatement(FIND_BY_NAME);
 			stmt.setString(1, name);
-			
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
 				Employees employee = new Employees();
-				employee.setId(rs.getString("id"));
+				employee.setId(rs.getInt("id")+"");
 				employee.setName(rs.getString("name"));
 				return employee;
 			} else {
@@ -145,22 +169,18 @@ public class TaskServiceDao {
 		}
 	}
 	
-	public int insert(Employees employee) {
+	public int insert(String name) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+		int id = findMaxId()+1;
+		int result;
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, employee.getName());
-			int result = stmt.executeUpdate();
-			ResultSet rs = stmt.getGeneratedKeys();
+			stmt = conn.prepareStatement(INSERT);
+			stmt.setInt(1,id);
+			stmt.setString(2,name);
+			result = stmt.executeUpdate();
 			
-			if (rs.next()) {
-				employee.setId(rs.getString(1));
-			}
-			
-			return result;
 		} catch (SQLException e) {
 			// e.printStackTrace();
 			throw new RuntimeException(e);
@@ -168,6 +188,7 @@ public class TaskServiceDao {
 			close(stmt);
 			close(conn);
 		}
+		return result;
 	}
 	
 	public int update(Employees employee) {
@@ -178,8 +199,7 @@ public class TaskServiceDao {
 			conn = getConnection();
 			stmt = conn.prepareStatement(UPDATE);
 			stmt.setString(1, employee.getName());
-			stmt.setString(2, employee.getId());
-			
+			stmt.setInt(2, Integer.parseInt(employee.getId()));
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			// e.printStackTrace();
