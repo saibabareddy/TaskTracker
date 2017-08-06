@@ -13,7 +13,7 @@ import com.tasktracker.model.Employees;
 public class TaskTrackerService {
 
 @Autowired
-TaskTrackerDao tasktrackerDao;
+TaskTrackerDao tasktrackerDao = new TaskTrackerDao();
 	public List<Employees> getEmployees(){
 		return tasktrackerDao.findAll();
 	}

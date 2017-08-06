@@ -4,14 +4,47 @@
 <head th:replace="common/header :: common-header" />
 
 <body>
-	<div th:replace="common/navbar :: common-navbar" />
-  
-	<div class="container">
-	
-	</div>
+	<div th:replace="common/navbar :: common-navbar"></div>
+  	
+	<div id="centerContainer">
+        <div class="container-fluid">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="block-left ">
+                
+                    <form >
+                    
+                        <table class="table">
+                        <caption>Insert Tasks Below:</caption>
+                            <thead>
+                                <tr>
+                                    <th class="textcenter">ID</th>
+                                    <th class="textcenter">DATE</th>
+                                    <th class="textcenter">NAME</th>
+                                    <th class="textcenter">TASKS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" placeholder="HH:MM" class="form-control"/></td>
+                                    <td><input type="text" id="date" class="form-control" disabled="true"></input></td>
+                                    <td><input type="text" placeholder="Name" class="form-control"/></td>
+                                    <td class="col-md-6"><input type="text" placeholder="Enter Tasks..." class="form-control"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-primary" id="Submit">Save</button>
+                        <br />
+                    </form>
+                    <div id="error">This is a test error message.</div>
+                </div>
+            </div>
+         </div>
+      </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+     <div th:replace="common/header :: before-body-scripts" />
    
 </body>
 </html>

@@ -57,3 +57,4 @@ var app = angular.module("ShipmentManagement", []);
                     console.log(response.statusText);
                 }
             });
+

@@ -9,8 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.tasktracker.model.Employees;
 
+
+@Repository
 public class TaskTrackerDao {
 //	private static final String DRIVER_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 //	private static final String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=ca";

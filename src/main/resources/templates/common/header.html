@@ -10,11 +10,23 @@
 
     <!-- Custom styles for this template -->
     <link type="text/css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/css/bootstrap-responsive.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/css/bootstrap-responsive.min.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/css/bootstrap.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    
 
    
 </head>
     <div th:fragment="before-body-scripts">
         <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+        <script th:src="@{/js/tasktracker.js}"></script>
+        <script th:src="@{/js/modernizr-2.6.2-respond-1.1.0.min.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
     </div>
 </html>
