@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tasktracker.model.Employees;
 import com.tasktracker.service.TaskTrackerService;
 
-@Path("/tasktracker")
+@Path("/tasks")
 public class TaskTrackerController {
 	
 	@Autowired

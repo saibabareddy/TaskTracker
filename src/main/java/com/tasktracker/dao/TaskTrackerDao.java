@@ -22,16 +22,16 @@ public class TaskTrackerDao {
 //	private static final String PASS = "sa";
 	
 	// Oracle
-//	private static final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
-//	private static final String DB_URL = "jdbc:oracle:thin:@dbserver:1521:xe";
-//	private static final String ID = "sys";
-//	private static final String PASS = "orcl";
-	
-	// MySQL
-	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://mastan.ct5jg6x9mvrp.us-east-1.rds.amazonaws.com:3306/mastan";
+	private static final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
+	private static final String DB_URL = "jdbc:oracle:thin:@//mastan.cc04xsvfdyut.us-east-1.rds.amazonaws.com:1521/MASTAN";
 	private static final String ID = "mastan";
 	private static final String PASS = "mastanbaba";
+	
+	/*// MySQL
+	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
+	private static final String DB_URL = "jdbc:mysql:/tasktracker.cc04xsvfdyut.us-east-1.rds.amazonaws.com:3306/TASKTRACKER";
+	private static final String ID = "TaskTracker";
+	private static final String PASS = "tasktracker";*/
 	
 	// PostgreSQL
 //	private static final String DRIVER_NAME = "org.postgresql.Driver";
@@ -216,13 +216,17 @@ public class TaskTrackerDao {
 	
 	
 	private Connection getConnection() {
+		
+		Connection conn = null;
 		try {
 			Class.forName(DRIVER_NAME);
-			return DriverManager.getConnection(DB_URL, ID, PASS);
+			conn =  DriverManager.getConnection(DB_URL, ID, PASS);
+			
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		return conn;
 	}
 	
 	
