@@ -28,6 +28,7 @@ public class TaskTrackerController {
 		return tasktrackerService.getEmployees();
 	}
 	
+	
 	@Path("/updateTasks")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -41,5 +42,15 @@ public class TaskTrackerController {
 		return incomingTask;
 		
 	}
+	@Path("/insertTasks")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 
+		public int insertTasks(int incomingTask) {
+
+			return incomingTask;
+		
+	}
+	
 }

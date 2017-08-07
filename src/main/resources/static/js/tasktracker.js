@@ -52,7 +52,7 @@ $("#TaskSubmit").click(function( event ) {
 	  }
 	  console.log(JSON.stringify(response, null, '\t'));
 	  
-	  $.ajax({
+/*	  $.ajax({
 		    'url' : '/tasktracker/tasks/updateTasks',
 		    'type' : 'POST',
 		    'data' : JSON.stringify(response),
@@ -63,8 +63,19 @@ $("#TaskSubmit").click(function( event ) {
 			'error' : function(XMLHttpRequest, textStatus, errorThrown){
 				console.log(textStatus);
 			}
+		  });*/
+	  $.ajax({
+		    'url' : '/tasktracker/tasks/insertTasks',
+		    'type' : 'POST',
+		    'data' : JSON.stringify(response),
+		    'contentType': 'application/json',
+		    'success' : function(data) {
+		    				console.log(data.status);
+		    },
+			'error' : function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(textStatus);
+			}
 		  });
-	  
 	  
 	});
 
