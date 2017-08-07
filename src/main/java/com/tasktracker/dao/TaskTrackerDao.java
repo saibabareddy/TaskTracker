@@ -68,7 +68,21 @@ public class TaskTrackerDao {
 	}
 	
 	public List<Employees> findAll() {
-		Connection conn = null;
+		ArrayList<Employees> list = new ArrayList<Employees>();
+		Employees employee = null;
+		employee = new Employees();
+		employee.setId("1");
+		employee.setName("Baba");
+		list.add(employee);
+		employee = new Employees();
+		employee.setId("2");
+		employee.setName("Harsha");
+		list.add(employee);
+		employee = new Employees();
+		employee.setId("3");
+		employee.setName("Srikanth");
+		list.add(employee);
+		/*Connection conn = null;
 		PreparedStatement stmt = null;
 		List<Employees> list = new ArrayList<Employees>();
 		
@@ -90,7 +104,7 @@ public class TaskTrackerDao {
 			close(stmt);
 			close(conn);
 		}
-		
+		*/
 		return list;
 	}
 	

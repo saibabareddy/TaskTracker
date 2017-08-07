@@ -17,7 +17,7 @@ public class JerseyConfig extends ResourceConfig {
  @Autowired
  public JerseyConfig(ObjectMapper objectMapper) {
    // register endpoints
-   packages("com.tasktracker");
+   packages("com.tasktracker","com.tasktracker.controllers");
    // register jackson for json 
    register(new ObjectMapperContextResolver(objectMapper));
  }

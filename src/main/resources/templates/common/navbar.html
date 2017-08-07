@@ -20,7 +20,10 @@
               <a href="#" th:href="@{/}">Home</a>
             </li>
             <li th:classappend="${module == 'tasks' ? 'active' : ''}">
-              <a href="#" onclick="">Tasks</a>
+              <a onclick="showStandUp()">Morning Stand Up Status</a>
+            </li>
+            <li th:classappend="${module == 'tasks' ? 'active' : ''}">
+              <a onclick="showEveningScrum()">Evening Scrum Status</a>
             </li>
           </ul>
         </div>

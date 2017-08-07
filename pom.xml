@@ -39,6 +39,7 @@
 			<scope>test</scope>
 		</dependency>
 		
+		
 		<!-- Webjars for jquery and bootstrap -->
 		<dependency>
 			<groupId>org.webjars</groupId>

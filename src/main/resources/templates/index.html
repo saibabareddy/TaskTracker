@@ -9,11 +9,9 @@
 	<div id="centerContainer">
         <div class="container-fluid">
             <!-- Example row of columns -->
-            <div class="row">
-                <div class="block-left ">
-                
-                    <form >
-                    
+            <div id="standUp" class="row">
+                <div class="block-center ">
+                    <form>
                         <table class="table">
                         <caption>Insert Tasks Below:</caption>
                             <thead>
@@ -25,15 +23,43 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><div id="date" class="form-control"></div></td>
-                                    <td><input type="text" id="employeeName" class="form-control"/></td>
-                                    <td class="col-md-6"><input type="text" placeholder="Enter Tasks..." class="form-control"/></td>
+                                    <td class="col-md-3"><div id="date"></div></td>
+                                    <td class="col-md-3"><input type="text" id="employeeName" placeholder="Search name" class="form-control"/></td>
+                                    <td class="col-md-6"><input type="text" id="tasktext" placeholder="Enter Tasks..." class="form-control"/></td>
                                 </tr>
                             </tbody>
                         </table>
+                        </form>
                         <button type="button" class="btn btn-primary" id="TaskSubmit">Save</button>
                         <br />
-                    </form>
+                    <div id="error">This is a test error message.</div>
+                </div>
+            </div>
+            <div id="eveningScrum" class="row">
+                <div class="block-center ">
+                    <form>
+                        <table class="table">
+                        <caption>Insert Tasks Below:</caption>
+                            <thead>
+                                <tr>
+                                    <th>DATE</th>
+                                    <th>NAME</th>
+                                    <th>TASKS</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-3"><div id="_date"></div></td>
+                                    <td class="col-md-3"><input type="text" id="_employeeName" placeholder="Search name" class="form-control"/></td>
+                                    <td class="col-md-6"><input type="text" id="_tasktext"  class="form-control" placeholder="Enter Tasks..."/></td>
+                                    <td class="col-md-2"><select id="_status"><option value="true">Completed</option><option value="false">Not Completed</option></select></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </form>
+                        <button type="button" class="btn btn-primary" id="_TaskSubmit">Save</button>
+                        <br />
                     <div id="error">This is a test error message.</div>
                 </div>
             </div>

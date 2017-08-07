@@ -1,29 +1,105 @@
-
-            	
-
- $(document).ready(function(){
-	 var _date = new Date();
-	 var utcString = _date.toUTCString();
-	
-// to set date 
+var employeesList = [];
+var employee ={};
+var _date = new Date();
+var utcString = _date.toUTCString();
+//to set date 
+function _getDate(){
 	$("#date").css('text-align', 'justify');
 	$("#date").css('font-family', 'Times New Roman');
 	$("#date").css('font-weight', '600');
 	$("#date").text(utcString);
+	$("#_date").css('text-align', 'justify');
+	$("#_date").css('font-family', 'Times New Roman');
+	$("#_date").css('font-weight', '600');
+	$("#_date").text(utcString);
+}
 
+
+
+//get list of employees
 function _refreshEmployees() {
+	
 	$.ajax({
-		    'url' : '/tasktracker/test',
+		    'url' : '/tasktracker/tasks/employees',
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
-		            alert(data[index].name);
+		            var e = { label :data[index].name , value :data[index].name};
+		            console.log(e);
+		            employeesList.push(e);
+		            $.each(employeesList,function(index){
+		            	var e = employeesList[index];
+		            	console.log(e);
+		            });
+		            
 		        });
-		    }
+		    },
+			'error' : function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(textStatus);
+			}
 		  });
 	}
 
- });
+$("#TaskSubmit").click(function( event ) {
+	  event.preventDefault();
+	  var incomingDate = $("#date").text();
+	  var incomingName = $("#employeeName").val();
+	  var incomingTask = $("#tasktext").val()
+	  var response ={
+			date : incomingDate,
+	  		name : incomingName,
+	  		task : incomingTask
+	  }
+	  console.log(JSON.stringify(response, null, '\t'));
+	  
+	  $.ajax({
+		    'url' : '/tasktracker/tasks/updateTasks',
+		    'type' : 'POST',
+		    'data' : JSON.stringify(response),
+		    'contentType': 'application/json',
+		    'success' : function(data) {
+		    				console.log(data.status);
+		    },
+			'error' : function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(textStatus);
+			}
+		  });
+	  
+	  
+	});
+
+function showStandUp(){
+	$("#eveningScrum").hide();
+	$("#standUp").show();
+}
+function showEveningScrum(){
+	$("#standUp").hide();
+	$("#eveningScrum").show();
+}
+
+
+
+$(document).ready(function(){
+	$("#standUp").hide();
+	$("#eveningScrum").hide();
+	_refreshEmployees();
+	_getDate();
+	
+	$( "#employeeName" ).autocomplete({ 
+	    source: employeesList,
+	    select: function(event, ui) {
+	        var index = employeesList.indexOf(ui.item.value);
+	    }
+	});
+	
+	$( "#_employeeName" ).autocomplete({ 
+	    source: employeesList,
+	    select: function(event, ui) {
+	        var index = employeesList.indexOf(ui.item.value);
+	    }
+	});
+	
+
    
  /*  var app = angular.module("ShipmentManagement", []);
 		//Controller Part
@@ -84,6 +160,6 @@ function _refreshEmployees() {
        console.log(response.statusText);
    }
 });*/
-            	   
+});       	   
             	
 

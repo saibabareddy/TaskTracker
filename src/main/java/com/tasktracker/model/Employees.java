@@ -1,5 +1,8 @@
 package com.tasktracker.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Employees {
 	String id;
 	String Name;
