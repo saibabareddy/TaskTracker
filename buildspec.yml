@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  post_build:
+    commands:
+      - mvn cleanpackage
+      - mv target/TaskTracker.war TaskTracker.war
+artifacts:
+  files:
+    - TaskTracker.war
+    - .ebextensions/**/*
