@@ -53,7 +53,7 @@ function _setDateandTime(){
 function _refreshEmployees() {
 	
 	$.ajax({
-		    'url' : '/TaskTracker/tasktracker/tasks/employees',
+		    'url' : '/tasktracker/tasks/employees',
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
@@ -76,7 +76,7 @@ function _refreshEmployees() {
 function _refreshTasks() {
 	var date = getDate();
 	$.ajax({
-		    'url' : '/TaskTracker/tasktracker/tasks/listtasks/'+date,
+		    'url' : '/tasktracker/tasks/listtasks/'+date,
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
@@ -110,7 +110,7 @@ $("#TaskSubmit").click(function( event ) {
 	  }
 	  console.log(JSON.stringify(response, null, '\t'));
 	  $.ajax({
-		    'url' : '/TaskTracker/tasktracker/tasks/insertTasks',
+		    'url' : '/tasktracker/tasks/insertTasks',
 		    'type' : 'POST',
 		    'data' : JSON.stringify(response),
 		    'contentType': 'application/json',
