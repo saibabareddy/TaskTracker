@@ -3,7 +3,7 @@ version: 0.2
 phases:
   post_build:
     commands:
-      - mvn cleanpackage
+      - mvn clean package
       - mv target/TaskTracker.war TaskTracker.war
 artifacts:
   files:
