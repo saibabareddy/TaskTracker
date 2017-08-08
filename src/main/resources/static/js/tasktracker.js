@@ -58,13 +58,15 @@ function _refreshEmployees() {
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
+		    		_callEmpList(data[index].name);
 		            var e = { label :data[index].name , value :data[index].name};
 		            console.log(e);
 		            employeesList.push(e);
-		            $.each(employeesList,function(index){
+		            $.each(employeesList,function(index, value){
 		            	var e = employeesList[index];
 		            	console.log(e);
 		            });
+		            
 		            
 		        });
 		    },
@@ -134,6 +136,25 @@ function showEveningScrum(){
 	$("#eveningScrum").show();
 }
 
+function _callEmpList(value){
+	var table = $('<table></table>').addClass('foo');
+        var row = $('<tr></tr>').addClass('bar');
+        var date=$('<td></td>').addClass('col-md-3').text(getDate());
+        var time=$('<td></td>').addClass('col-md-3').text(getTime());
+        var emp=$('<td></td>').addClass('col-md-3').text(value);
+        var input_task = $('<input>').attr({
+            type: 'text',
+            placeholder: 'Enter Tasks...',
+            name: 'names[]'
+        });
+        row.append(date);
+        row.append(time);
+        row.append(emp);
+        row.append('<td class="col-md-6"><input type="text" id="tasktext" placeholder="Enter Tasks..." class="form-control"/></td>');
+        table.append(row);
+    $('#Content').append(table);
+}
+
 
 
 $(document).ready(function(){
@@ -142,14 +163,12 @@ $(document).ready(function(){
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
-	
 	$( "#employeeName" ).autocomplete({ 
 	    source: employeesList,
 	    select: function(event, ui) {
 	        var index = employeesList.indexOf(ui.item.value);
 	    }
 	});
-	
 	$( "#_employeeName" ).autocomplete({ 
 	    source: tasksList,
 	    select: function(event, ui) {
