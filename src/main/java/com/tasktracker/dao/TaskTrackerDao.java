@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.tasktracker.model.Employees;
+import com.tasktracker.model.Tasks;
 
 
 @Repository
@@ -26,7 +27,7 @@ public class TaskTrackerDao {
 //	private static final String DB_URL = "jdbc:oracle:thin:@//mastan.cc04xsvfdyut.us-east-1.rds.amazonaws.com:1521/MASTAN";
 //	private static final String ID = "mastan";
 //	private static final String PASS = "mastanbaba";
-//	
+	
 	/*// MySQL
 	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
 	private static final String DB_URL = "jdbc:mysql:/tasktracker.cc04xsvfdyut.us-east-1.rds.amazonaws.com:3306/TASKTRACKER";
@@ -39,16 +40,20 @@ public class TaskTrackerDao {
 //	private static final String ID = "postgres";
 //	private static final String PASS = "postgres";
 	
-	//private static final String DELETE = "DELETE FROM Employee WHERE id=?";
-	private static final String FIND_ALL = "SELECT * FROM Employee ORDER BY name";
-	//private static final String MAX_ID = "SELECT MAX(ID) FROM Employee";
-	//private static final String FIND_BY_ID = "SELECT * FROM Employee WHERE id=?";
-	//private static final String FIND_BY_NAME = "SELECT * FROM Employee WHERE name=?";
-	private static final String INSERT = "INSERT INTO Tasks(task) VALUES(?)";
+	private static final String DELETE = "DELETE FROM Employee WHERE id=?";
+	private static final String FIND_ALL_EMPLOYEES = "SELECT * FROM Employee ORDER BY id";
+	private static final String FIND_ALL_TASKS = "SELECT * FROM Tasks where date = ?";
+	private static final String EMPLOYEE_MAX_ID = "SELECT MAX(ID) FROM Employee";
+	private static final String TASKS_MAX_ID = "SELECT MAX(ID) FROM Tasks";
+	private static final String FIND_BY_ID = "SELECT * FROM Employee WHERE id=?";
+	private static final String FIND_BY_NAME = "SELECT * FROM Employee WHERE name=?";
+	private static final String INSERT_EMPLOYEE = "INSERT INTO Employee(id,name) VALUES(?,?)";
+	private static final String INSERT_TASK = "INSERT INTO Tasks(id,name,task,date,time,status,reason) VALUES(?,?,?,?,?,?,?)";
+	private static final String UPDATE_TASK = "INSERT INTO Tasks(status,reason) VALUES(?,?) WHERE date = ? AND name = ? ";
 	private static final String UPDATE = "UPDATE Employee SET name=? WHERE id=?";
 	
 	
-/*	public int delete(int id) {
+	public int delete(int id) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
@@ -65,17 +70,17 @@ public class TaskTrackerDao {
 			close(stmt);
 			close(conn);
 		}
-	}*/
+	}
 	
-	public List<Employees> findAll() {
-
+	public List<Employees> findAllEmployees() {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		List<Employees> list = new ArrayList<Employees>();
 		
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement(FIND_ALL);
+			stmt = conn.prepareStatement(FIND_ALL_EMPLOYEES);
+			
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -91,17 +96,43 @@ public class TaskTrackerDao {
 			close(stmt);
 			close(conn);
 		}
-		
 		return list;
 	}
 	
-/*	public Integer findMaxId() {
+	public List<Tasks> findAllTasks(String date) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		List<Tasks> list = new ArrayList<Tasks>();
+		
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(FIND_ALL_TASKS);
+			stmt.setString(1, date);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Tasks task = new Tasks();
+				task.setName(rs.getString("name"));
+				task.setTask(rs.getString("task"));
+				list.add(task);
+			}
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+		return list;
+	}
+	
+	public Integer EmployeefindMaxId() {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int maxId= 0;
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement(MAX_ID);
+			stmt = conn.prepareStatement(EMPLOYEE_MAX_ID);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next())
 			{
@@ -117,9 +148,33 @@ public class TaskTrackerDao {
 		}
 		
 		return maxId;
-	}*/
+	}
 	
-	/*public Employees findById(int id) {
+	public Integer TaskfindMaxId() {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int maxId= 0;
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(TASKS_MAX_ID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				maxId = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+		
+		return maxId;
+	}
+	
+	public Employees findById(int id) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
@@ -145,9 +200,9 @@ public class TaskTrackerDao {
 			close(stmt);
 			close(conn);
 		}
-	}*/
+	}
 	
-	/*public Employees findByName(String name) {
+	public Employees findByName(String name) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
@@ -172,17 +227,45 @@ public class TaskTrackerDao {
 			close(stmt);
 			close(conn);
 		}
-	}*/
+	}
 	
-	public int insert(String task) {
+	public int insertEmployee(String name) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+		int id = EmployeefindMaxId()+1;
 		int result;
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement(INSERT);
-			stmt.setString(1,task);
+			stmt = conn.prepareStatement(INSERT_EMPLOYEE);
+			stmt.setInt(1,id);
+			stmt.setString(2,name);
+			result = stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+		return result;
+	}
+	
+	public int insertTask(Tasks task) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int id = TaskfindMaxId()+1;
+		int result;
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(INSERT_TASK);
+			stmt.setInt(1,id);
+			stmt.setString(2,task.getName());
+			stmt.setString(3,task.getTask());
+			stmt.setString(4, task.getDate());
+			stmt.setString(5, task.getTime());
+			stmt.setString(6, task.getStatus());
+			stmt.setString(7, task.getReason());
 			result = stmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -216,18 +299,19 @@ public class TaskTrackerDao {
 	
 	
 	private Connection getConnection() {
-		
-		Connection conn = null;
-		try {
-			String url = "jdbc:mysql://wmsmysql.cun5uvzp5qky.us-east-1.rds.amazonaws.com:3306/TaskTracker";
-			conn = DriverManager.getConnection(url, "wmsmysqladmin", "WMSMySQLPass1");
-			System.out.println("COnnection Successful");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			throw new RuntimeException(e);
+			
+			Connection conn = null;
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				String url = "jdbc:mysql://tasktracker.cc04xsvfdyut.us-east-1.rds.amazonaws.com:3306/TASKTRACKER";
+				conn = DriverManager.getConnection(url, "TaskTracker", "tasktracker");
+				System.out.println("COnnection Successful");
+			} catch (Exception e) {
+				// e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+			return conn;
 		}
-		return conn;
-	}
 	
 	
 	private static void close(Connection con) {

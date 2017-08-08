@@ -16,10 +16,15 @@ public class TaskTrackerService {
 @Autowired
 TaskTrackerDao tasktrackerDao = new TaskTrackerDao();
 public List<Employees> getEmployees(){
-		return tasktrackerDao.findAll();
+		return tasktrackerDao.findAllEmployees();
 	}
-public int insertTasks(int incomingTask){
-	return tasktrackerDao.insert("task");
+
+public List<Tasks> getTasks(String date){
+	return tasktrackerDao.findAllTasks(date);
+}
+
+public int insertTasks(Tasks task){
+	return tasktrackerDao.insertTask(task);
 }
 	
 }

@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -28,28 +29,25 @@ public class TaskTrackerController {
 		return tasktrackerService.getEmployees();
 	}
 	
-	
-	@Path("/updateTasks")
-	@POST
+	@Path("/listtasks/{date}")
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Tasks updateTasks(Tasks incomingTask) {
-		System.out.println(incomingTask.getDate());
-		System.out.println(incomingTask.getName());
-		System.out.println(incomingTask.getTask());
-		System.out.println(incomingTask.getReason());
-		System.out.println(incomingTask.isStatus());
-		return incomingTask;
-		
+	public List<Tasks> getTasks(@PathParam("date") String date) {
+		return tasktrackerService.getTasks(date);
 	}
+	
+	
 	@Path("/insertTasks")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-
-		public int insertTasks(int incomingTask) {
-
-			return incomingTask;
+	public Tasks updateTasks(Tasks incomingTask) {
+		int status = tasktrackerService.insertTasks(incomingTask);
+		if(status == 1)
+		{
+			incomingTask.setStatus("true");
+		}
+		return incomingTask;
 		
 	}
 	

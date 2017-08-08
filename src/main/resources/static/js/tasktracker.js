@@ -1,17 +1,50 @@
 var employeesList = [];
+var tasksList = [];
 var employee ={};
-var _date = new Date();
-var utcString = _date.toUTCString();
+
+function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+
+function getTime(){
+		var d = new Date();    
+		var h = addZero(d.getUTCHours());
+		var m = addZero(d.getUTCMinutes());
+		var s = addZero(d.getUTCSeconds());
+		var time =  h + ":" + m + ":" + s;
+		return time;
+}
+
+function getDate(){
+	 var d = new Date();
+	 var y = addZero(d.getUTCFullYear());
+	 var _d = addZero(d.getUTCDate());
+	 var m = addZero(d.getUTCMonth()+1);
+	 var date = _d+"-"+m+"-"+y
+	 return date
+}
+
 //to set date 
-function _getDate(){
+function _setDateandTime(){
 	$("#date").css('text-align', 'justify');
 	$("#date").css('font-family', 'Times New Roman');
 	$("#date").css('font-weight', '600');
-	$("#date").text(utcString);
+	$("#date").text(getDate());
 	$("#_date").css('text-align', 'justify');
 	$("#_date").css('font-family', 'Times New Roman');
 	$("#_date").css('font-weight', '600');
-	$("#_date").text(utcString);
+	$("#_date").text(getDate());
+	$("#time").css('text-align', 'justify');
+	$("#time").css('font-family', 'Times New Roman');
+	$("#time").css('font-weight', '600');
+	$("#time").text(getTime());
+	$("#_time").css('text-align', 'justify');
+	$("#_time").css('font-family', 'Times New Roman');
+	$("#_time").css('font-weight', '600');
+	$("#_time").text(getTime());
 }
 
 
@@ -20,7 +53,7 @@ function _getDate(){
 function _refreshEmployees() {
 	
 	$.ajax({
-		    'url' : '/tasktracker/tasks/employees',
+		    'url' : '/TaskTracker/tasktracker/tasks/employees',
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
@@ -40,32 +73,44 @@ function _refreshEmployees() {
 		  });
 	}
 
-$("#TaskSubmit").click(function( event ) {
-	  event.preventDefault();
-	  var incomingDate = $("#date").text();
-	  var incomingName = $("#employeeName").val();
-	  var incomingTask = $("#tasktext").val()
-	  var response ={
-			date : incomingDate,
-	  		name : incomingName,
-	  		task : incomingTask
-	  }
-	  console.log(JSON.stringify(response, null, '\t'));
-	  
-/*	  $.ajax({
-		    'url' : '/tasktracker/tasks/updateTasks',
-		    'type' : 'POST',
-		    'data' : JSON.stringify(response),
-		    'contentType': 'application/json',
+function _refreshTasks() {
+	var date = getDate();
+	$.ajax({
+		    'url' : '/TaskTracker/tasktracker/tasks/listtasks/'+date,
+		    'type' : 'GET',
 		    'success' : function(data) {
-		    				console.log(data.status);
+		    	$.each(data, function(index) {
+		            var e = { label :data[index].name , value :data[index].task};
+		            console.log(e);
+		            tasksList.push(e);
+		            $.each(tasksList,function(index){
+		            	var e = tasksList[index];
+		            	console.log(e);
+		            });
+		            
+		        });
 		    },
 			'error' : function(XMLHttpRequest, textStatus, errorThrown){
 				console.log(textStatus);
 			}
-		  });*/
+		  });
+	}
+
+$("#TaskSubmit").click(function( event ) {
+	  event.preventDefault();
+	  var incomingDate = $("#date").text();
+	  var incomingTime = $("#time").text();
+	  var incomingName = $("#employeeName").val();
+	  var incomingTask = $("#tasktext").val()
+	  var response ={
+			date : incomingDate,
+			time : incomingTime,
+	  		name : incomingName,
+	  		task : incomingTask
+	  }
+	  console.log(JSON.stringify(response, null, '\t'));
 	  $.ajax({
-		    'url' : '/tasktracker/tasks/insertTasks',
+		    'url' : '/TaskTracker/tasktracker/tasks/insertTasks',
 		    'type' : 'POST',
 		    'data' : JSON.stringify(response),
 		    'contentType': 'application/json',
@@ -94,7 +139,8 @@ $(document).ready(function(){
 	$("#standUp").hide();
 	$("#eveningScrum").hide();
 	_refreshEmployees();
-	_getDate();
+	_refreshTasks();
+	_setDateandTime();
 	
 	$( "#employeeName" ).autocomplete({ 
 	    source: employeesList,
@@ -104,9 +150,11 @@ $(document).ready(function(){
 	});
 	
 	$( "#_employeeName" ).autocomplete({ 
-	    source: employeesList,
+	    source: tasksList,
 	    select: function(event, ui) {
-	        var index = employeesList.indexOf(ui.item.value);
+	    	event.preventDefault();
+	    	$("#_employeeName").val(ui.item.label);
+	        $("#_tasktext").val(ui.item.value); 
 	    }
 	});
 	

@@ -6,9 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Tasks {
 		
 		String date;
+		String time;
 		String name;
 		String task;
-		boolean status;
+		String status;
 		String reason;
 		public String getDate() {
 			return date;
@@ -28,18 +29,25 @@ public class Tasks {
 		public void setTask(String task) {
 			this.task = task;
 		}
-		public boolean isStatus() {
-			return status;
-		}
-		public void setStatus(boolean status) {
-			this.status = status;
-		}
 		public String getReason() {
 			return reason;
 		}
 		public void setReason(String reason) {
 			this.reason = reason;
 		}
+		public String getTime() {
+			return time;
+		}
+		public void setTime(String time) {
+			this.time = time;
+		}
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
+		
 		
 		
 
