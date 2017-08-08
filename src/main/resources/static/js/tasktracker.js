@@ -1,6 +1,7 @@
 var employeesList = [];
 var tasksList = [];
 var employee ={};
+var user ={};
 
 function addZero(i) {
     if (i < 10) {
