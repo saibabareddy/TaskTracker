@@ -127,6 +127,34 @@ $("#TaskSubmit").click(function( event ) {
 	  
 	});
 
+$("#TaskSubmitNew").click(function( event ) {
+	  event.preventDefault();
+	  var incomingDate = $("#date").text();
+	  var incomingTime = $("#time").text();
+	  var incomingName = $("#employeeName").val();
+	  var incomingTask = $("#tasktext").val()
+	  var response ={
+			date : incomingDate,
+			time : incomingTime,
+	  		name : incomingName,
+	  		task : incomingTask
+	  }
+	  console.log(JSON.stringify(response, null, '\t'));
+	  $.ajax({
+		    'url' : '/tasktracker/tasks/insertTasks',
+		    'type' : 'POST',
+		    'data' : JSON.stringify(response),
+		    'contentType': 'application/json',
+		    'success' : function(data) {
+		    				console.log(data.status);
+		    },
+			'error' : function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(textStatus);
+			}
+		  });
+	  
+	});
+
 function showStandUp(){
 	$("#eveningScrum").hide();
 	$("#standUp").show();
@@ -137,22 +165,15 @@ function showEveningScrum(){
 }
 
 function _callEmpList(value){
-	var table = $('<table></table>').addClass('foo');
-        var row = $('<tr></tr>').addClass('bar');
-        var date=$('<td></td>').addClass('col-md-3').text(getDate());
-        var time=$('<td></td>').addClass('col-md-3').text(getTime());
+	var table = $('<table></table>').addClass('morning');
+        var row = $('<tr></tr>').addClass('morning_row');
         var emp=$('<td></td>').addClass('col-md-3').text(value);
-        var input_task = $('<input>').attr({
-            type: 'text',
-            placeholder: 'Enter Tasks...',
-            name: 'names[]'
-        });
-        row.append(date);
-        row.append(time);
         row.append(emp);
         row.append('<td class="col-md-6"><input type="text" id="tasktext" placeholder="Enter Tasks..." class="form-control"/></td>');
+        row.append('<td class="col-md-6"><button type="button" class="btn btn-primary" id="TaskSubmitNew">Save</button></td>');
         table.append(row);
-    $('#Content').append(table);
+    $('form#Content').append(table);
+    
 }
 
 
