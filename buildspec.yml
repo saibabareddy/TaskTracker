@@ -3,9 +3,8 @@ version: 0.2
 phases:
   post_build:
     commands:
-      - mvn clean package
-      - mv target/TaskTracker.war TaskTracker.war
+      - mvn package
 artifacts:
   files:
-    - TaskTracker.war
-    - .ebextensions/**/*
+    - '**/*'
+  base-directory: 'target/TaskTracker'
