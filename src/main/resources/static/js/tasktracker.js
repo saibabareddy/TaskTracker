@@ -50,6 +50,8 @@ function _setDateandTime(){
 
 
 
+
+
 //get list of employees
 function _refreshEmployees() {
 	
@@ -58,7 +60,7 @@ function _refreshEmployees() {
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
-		    		_callEmpList(data[index].name);
+		    		_generateEmpList(data[index].name);
 		            var e = { label :data[index].name , value :data[index].name};
 		            console.log(e);
 		            employeesList.push(e);
@@ -83,6 +85,7 @@ function _refreshTasks() {
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
+		    		_generateTasksList(data[index].name,data[index].task);
 		            var e = { label :data[index].name , value :data[index].task};
 		            console.log(e);
 		            tasksList.push(e);
@@ -99,7 +102,7 @@ function _refreshTasks() {
 		  });
 	}
 
-$("#TaskSubmit").click(function( event ) {
+/*$("#TaskSubmit").click(function( event ) {
 	  event.preventDefault();
 	  var incomingDate = $("#date").text();
 	  var incomingTime = $("#time").text();
@@ -125,35 +128,7 @@ $("#TaskSubmit").click(function( event ) {
 			}
 		  });
 	  
-	});
-
-$("#TaskSubmitNew").click(function( event ) {
-	  event.preventDefault();
-	  var incomingDate = $("#date").text();
-	  var incomingTime = $("#time").text();
-	  var incomingName = $("#employeeName").val();
-	  var incomingTask = $("#tasktext").val()
-	  var response ={
-			date : incomingDate,
-			time : incomingTime,
-	  		name : incomingName,
-	  		task : incomingTask
-	  }
-	  console.log(JSON.stringify(response, null, '\t'));
-	  $.ajax({
-		    'url' : '/tasktracker/tasks/insertTasks',
-		    'type' : 'POST',
-		    'data' : JSON.stringify(response),
-		    'contentType': 'application/json',
-		    'success' : function(data) {
-		    				console.log(data.status);
-		    },
-			'error' : function(XMLHttpRequest, textStatus, errorThrown){
-				console.log(textStatus);
-			}
-		  });
-	  
-	});
+	});*/
 
 function showStandUp(){
 	$("#eveningScrum").hide();
@@ -164,18 +139,206 @@ function showEveningScrum(){
 	$("#eveningScrum").show();
 }
 
-function _callEmpList(value){
-	var table = $('<table></table>').addClass('morning');
-        var row = $('<tr></tr>').addClass('morning_row');
-        var emp=$('<td></td>').addClass('col-md-3').text(value);
-        row.append(emp);
-        row.append('<td class="col-md-6"><input type="text" id="tasktext" placeholder="Enter Tasks..." class="form-control"/></td>');
-        row.append('<td class="col-md-6"><button type="button" class="btn btn-primary" id="TaskSubmitNew">Save</button></td>');
-        table.append(row);
-    $('form#Content').append(table);
-    
+function _generateEmpList(value){
+	var row=[];
+	row.length=0;
+	row.push("<td class='col-md-3'id='name'>"+value+"</td>");
+	row.push("<td class='col-md-6' id='task'><input type='text' placeholder='Enter Tasks...' class='form-control'/></td>");
+	row.push("<td class='col-md-6'><button type='button' class='saveButton' id='TaskSubmit'>Save</button></td>");
+	row.push("<td style='display:none' id='error'>hello</td>");
+	$("<tr/>",{ class:'morning_row',html:row.join("") }).appendTo("#employeeTable tbody");
+	
 }
 
+function _generateTasksList(name,task){
+	var row=[];
+	row.length=0;
+	row.push("<td class='col-md-3' id='name'>"+name+"</td>");
+	row.push("<td class='col-md-3' id='task'>"+task+"</td>");
+	row.push('<td class="col-md-2"><select id="_status"><option selected="selected" value="">default</option><option value="true">Completed</option><option value="false">Not Completed</option></select></td>');
+	row.push("<td class='col-md-6'><button type='button' class='saveTaskButton' id='TaskStatusSubmit'>Save</button></td>");
+	row.push("<td style='display:none' id='error'>hello</td>");
+	$("<tr/>",{ class:'morning_row',html:row.join("") }).appendTo("#tasksTable tbody");
+	
+}
+
+$(document).on('click', '.saveButton',function(e) {
+	e.preventDefault();
+	var response = {};
+    var currentTD = $(this).parents('tr').find('td');   
+    console.log($(this).parents('tr').find('#error').text());
+        $.each(currentTD, function () {
+        	var _id=$(this).attr('id');
+        	if(_id === "name" )
+        	{
+        	response[_id] = $(this).text();
+        	}
+        	if(_id === "task" )
+        	{
+        	response[_id] = $(this).find('input').val();
+        	}
+        }); 
+        response["date"] = getDate();
+        response["time"] = getTime();
+     if(response.task){
+      console.log(JSON.stringify(response, null, '\t'));
+  	  $.ajax({
+  		    'url' : '/tasktracker/tasks/insertTasks',
+  		    'type' : 'POST',
+  		    'data' : JSON.stringify(response),
+  		    'contentType': 'application/json',
+  		    'success' : function(data) {
+  		    				console.log(data.status);
+  		    				var message = "Task Saved";
+  		    				messagepopup(message);
+  		    },
+  			'error' : function(XMLHttpRequest, textStatus, errorThrown){
+  				console.log(textStatus);
+  			}
+  		  });
+      }
+      else{
+    	  $(this).parents('tr').find('#error').css("display", "block");
+    	  $(this).parents('tr').find('#error').addClass('col-md-6');
+    	  $(this).parents('tr').find('#error').text(" Task should not be null");
+      }
+        
+    });
+
+$(document).on('click', '.saveTaskButton',function(e) {
+	e.preventDefault();
+	var response = {};
+    var currentTD = $(this).parents('tr').find('td');  
+    
+    console.log($(this).parents('tr').find("#_status").val());
+    var status= $(this).parents('tr').find("#_status").val();
+    if(status){
+    	
+    	$.each(currentTD, function () {
+        	var _id=$(this).attr('id');
+        	if(_id === "name" )
+        	{
+        		response[_id] = $(this).text();
+        	}
+        	if(_id === "task" )
+        	{
+        		response[_id] = $(this).text();
+        	}
+        }); 
+        response["date"] = getDate();
+        response["time"] = getTime();
+        response["status"] = status;
+        
+    if(status === "true")
+    {	
+      console.log(JSON.stringify(response, null, '\t'));
+  	  $.ajax({
+  		    'url' : '/tasktracker/tasks/updateTasks',
+  		    'type' : 'POST',
+  		    'data' : JSON.stringify(response),
+  		    'contentType': 'application/json',
+  		    'success' : function(data) {
+  		    				console.log(data.status);
+  		    				var message = "Status Submitted";
+  		    				messagepopup(message);
+  		    },
+  			'error' : function(XMLHttpRequest, textStatus, errorThrown){
+  				console.log(textStatus);
+  			}
+  		  });
+      }
+    else{
+    	showpopup(response);
+    }
+    }
+      else{
+    	  $(this).parents('tr').find('#error').css("display", "block");
+    	  $(this).parents('tr').find('#error').addClass('col-md-6');
+    	  $(this).parents('tr').find('#error').text(" Select a Status of completed or not completed");
+      }
+        
+    });
+
+$("#reasonSubmit").click(function( event ) {
+event.preventDefault();
+var incomingDate = $("#popup_box #date").val();
+var incomingTime = $("#popup_box #time").val();
+var incomingName = $("#popup_box #name").val();
+var incomingTask = $("#popup_box #task").val();
+var incomingStatus = $("#popup_box #Status").val();
+var incomingReason = $("#popup_box #reason").val();
+var response ={
+		date : incomingDate,
+		time : incomingTime,
+		name : incomingName,
+		task : incomingTask,
+		reason : incomingReason,
+		status : incomingStatus
+}
+console.log(JSON.stringify(response, null, '\t'));
+$.ajax({
+	    'url' : '/tasktracker/tasks/updateTasks',
+	    'type' : 'POST',
+	    'data' : JSON.stringify(response),
+	    'contentType': 'application/json',
+	    'success' : function(data) {
+	    	 			hidepopup();
+	    				console.log(data.status);
+	    				var message = "Reason Submitted";
+	    				messagepopup(message);
+	    				
+	    },
+		'error' : function(XMLHttpRequest, textStatus, errorThrown){
+			console.log(textStatus);
+		}
+	  });
+
+});
+
+$("#cancel_button").click(function(e){
+	e.preventDefault();
+	  hidepopup();
+});
+	 
+$("#close_button").click(function(e){
+	e.preventDefault();
+	  hidepopup();
+	 });
+
+$('.ok_btn').click(function(e){
+	e.preventDefault();
+	hidemessagepopup();
+	 });
+
+
+function showpopup(response){
+	console.log("inside pop up ="+ response);
+	 $("#popup_box").fadeToggle();
+	 $("#popup_box").css({"visibility":"visible","display":"block"});
+	 $("#popup_box #name").val(response.name);
+	 $("#popup_box #task").val(response.task);
+	 $("#popup_box #time").val(response.time);
+	 $("#popup_box #date").val(response.date);
+	 $("#popup_box #status").val(response.status);
+}
+
+function messagepopup(message){
+	$("#message_box").html("<br/><div align='center'>"+ message +"</div><br/><input type='button' class='ok_btn' id='ok_button' value='OK'/><br/><br/>");
+	 $("#message_box").fadeToggle();
+	 $("#message_box").css({"visibility":"visible","display":"block"});
+}
+
+function hidemessagepopup()
+{
+ $("#message_box").fadeToggle();
+ $("#message_box").css({"visibility":"hidden","display":"none"});
+}
+
+function hidepopup()
+{
+ $("#popup_box").fadeToggle();
+ $("#popup_box").css({"visibility":"hidden","display":"none"});
+}
 
 
 $(document).ready(function(){
@@ -184,7 +347,7 @@ $(document).ready(function(){
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
-	$( "#employeeName" ).autocomplete({ 
+	/*$( "#employeeName" ).autocomplete({ 
 	    source: employeesList,
 	    select: function(event, ui) {
 	        var index = employeesList.indexOf(ui.item.value);
@@ -197,69 +360,9 @@ $(document).ready(function(){
 	    	$("#_employeeName").val(ui.item.label);
 	        $("#_tasktext").val(ui.item.value); 
 	    }
-	});
-	
+	});*/
+		 
 
-   
- /*  var app = angular.module("ShipmentManagement", []);
-		//Controller Part
-	app.controller("ShipmentController", function($scope, $http) {           
-   $scope.shipments = [];
-   $scope.shipmentForm = {
-           id : -1,
-           name : "",
-           provider : ""
-       };
- //Now load the data from server
-   _refreshshipmentData();
- 
-   //HTTP POST/PUT methods for add/edit country 
-   // with the help of id, we are going to find out whether it is put or post operation
-   
-   $scope.submitShipment = function() {
-
-       var method = "";
-       var url = "";
-       
-       if ($scope.shipmentForm.id == -1) {
-           //Id is absent in form data, it is create new country operation
-           method = "POST";
-           url = 'http://localhost:8080/newShipment';
-       } 
-       $http({
-           method : method,
-           url : url,
-           data : angular.toJson($scope.shipmentForm),
-           headers : {
-               'Content-Type' : 'application/json'
-           }
-       }).then( _success, _error );
-   };
-
-  
-   
-  Private Methods 
-   //HTTP GET- get all shipments collection
-   function _refreshshipmentData() {
-       $http({
-           method : 'GET',
-           url : 'http://localhost:8080/Shipments'
-       }).then(function successCallback(response) {
-           $scope.shipments = response.data;
-       }, function errorCallback(response) {
-           console.log(response.statusText);
-       });
-   }
-
-   function _success(response) {
-       _refreshshipmentData();
-       _clearFormData()
-   }
-
-   function _error(response) {
-       console.log(response.statusText);
-   }
-});*/
 });       	   
             	
 

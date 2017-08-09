@@ -41,8 +41,22 @@ public class TaskTrackerController {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Tasks updateTasks(Tasks incomingTask) {
+	public Tasks insertTasks(Tasks incomingTask) {
 		int status = tasktrackerService.insertTasks(incomingTask);
+		if(status == 1)
+		{
+			incomingTask.setStatus("true");
+		}
+		return incomingTask;
+		
+	}
+	
+	@Path("/updateTasks")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Tasks updateTasks(Tasks incomingTask) {
+		int status = tasktrackerService.updateTasks(incomingTask);
 		if(status == 1)
 		{
 			incomingTask.setStatus("true");

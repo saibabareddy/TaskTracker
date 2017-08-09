@@ -11,61 +11,61 @@
             <!-- Example row of columns -->
             <div id="standUp" class="row">
                 <div class="block-center ">
-                        <table class="table">
+                        <table class="table" id ="employeeTable">
                         <caption>Insert Tasks Below:</caption>
-                            <thead>
+                            <thead class="thead-inverse">
                                 <tr>
-                                    <th>NAME</th>
-                                    <th>TASKS</th>
+                                    <th class="col-md-3">NAME</th>
+                                    <th class="col-md-3">TASKS</th>
                                 </tr>
                             </thead>
-<!--                             <tbody> -->
-<!--                                 <tr> -->
-<!--                                     <td class="col-md-3"><div id="date"></div></td> -->
-<!--                                     <td class="col-md-3"><div id="time"></div></td> -->
-<!--                                     <td class="col-md-3"><input type="text" id="employeeName" placeholder="Search name" class="form-control"/></td> -->
-<!--                                     <td class="col-md-6"><input type="text" id="tasktext" placeholder="Enter Tasks..." class="form-control"/></td> -->
-<!--                                 </tr> -->
-<!--                             </tbody> -->
+                            <tbody>
+                            </tbody>
                         </table>
-                        <form id="Content"></form>
-<!--                         <button type="button" class="btn btn-primary" id="TaskSubmit">Save</button> -->
                         <br />
-                    <div id="error">This is a test error message.</div>
                 </div>
             </div>
             <div id="eveningScrum" class="row">
                 <div class="block-center ">
-                    <form>
-                        <table class="table">
+                        <table class="table" id="tasksTable">
                         <caption>Insert Tasks Below:</caption>
-                            <thead>
+                            <thead class="thead-inverse">
                                 <tr>
-                                    <th>DATE</th>
-                                    <th>TIME</th>
                                     <th>NAME</th>
                                     <th>TASKS</th>
                                     <th>STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="col-md-3"><div id="_date"></div></td>
-                                    <td class="col-md-3"><div id="_time"></div></td>
-                                    <td class="col-md-3"><input type="text" id="_employeeName" placeholder="Search name" class="form-control"/></td>
-                                    <td class="col-md-6"><input type="text" id="_tasktext"  class="form-control" placeholder="Enter Tasks..."/></td>
-                                    <td class="col-md-2"><select id="_status"><option value="true">Completed</option><option value="false">Not Completed</option></select></td>
-                                </tr>
                             </tbody>
                         </table>
-                        </form>
-                        <button type="button" class="btn btn-primary" id="_TaskSubmit">Save</button>
                         <br />
-                    <div id="error">This is a test error message.</div>
                 </div>
             </div>
          </div>
       </div>
+      <div align="center">
+			 <div id="popup_box">
+			 	<br/>
+			 	<br/>
+			 	<div>Name : <input type="text" id="name" disabled="true"/></div>
+			 	<div>Task : <input type="text" id="task" disabled="true"/></div>
+			 	<input type="text" id="reason" placeholder="Enter reason for task Incompletion"/>
+			 	<input type="hidden" id="time" />
+			 	<input type="hidden" id="date" />
+			 	
+			 	<div><button type="button" id="reasonSubmit">Save</button></div>
+				<input type="button" id="cancel_button" value="X"/>
+				<br/>
+				<br/>
+			</div>
+	</div>
+	
+	<div align="center">
+			 <div id="message_box">
+			 
+			</div>
+	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

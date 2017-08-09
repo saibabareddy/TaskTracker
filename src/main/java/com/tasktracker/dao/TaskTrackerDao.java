@@ -49,7 +49,7 @@ public class TaskTrackerDao {
 	private static final String FIND_BY_NAME = "SELECT * FROM Employee WHERE name=?";
 	private static final String INSERT_EMPLOYEE = "INSERT INTO Employee(id,name) VALUES(?,?)";
 	private static final String INSERT_TASK = "INSERT INTO Tasks(id,name,task,date,time,status,reason) VALUES(?,?,?,?,?,?,?)";
-	private static final String UPDATE_TASK = "INSERT INTO Tasks(status,reason) VALUES(?,?) WHERE date = ? AND name = ? ";
+	private static final String UPDATE_TASK = "UPDATE Tasks SET status = ?,reason=? WHERE date = ? and name =?";
 	private static final String UPDATE = "UPDATE Employee SET name=? WHERE id=?";
 	
 	
@@ -287,6 +287,27 @@ public class TaskTrackerDao {
 			stmt = conn.prepareStatement(UPDATE);
 			stmt.setString(1, employee.getName());
 			stmt.setInt(2, Integer.parseInt(employee.getId()));
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+	}
+	
+	public int updateTask(Tasks task) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(UPDATE_TASK);
+			stmt.setString(1, task.getStatus());
+			stmt.setString(2, task.getReason());
+			stmt.setString(3, task.getDate());
+			stmt.setString(4, task.getName());
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			// e.printStackTrace();

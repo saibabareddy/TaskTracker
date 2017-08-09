@@ -26,5 +26,9 @@ public List<Tasks> getTasks(String date){
 public int insertTasks(Tasks task){
 	return tasktrackerDao.insertTask(task);
 }
+
+public int updateTasks(Tasks task){
+	return tasktrackerDao.updateTask(task);
+}
 	
 }
