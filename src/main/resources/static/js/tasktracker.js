@@ -323,20 +323,25 @@ function hidepopup()
  $("#popup_box").css({"visibility":"hidden","display":"none"});
 }
 
+function _clickSaveButton(){
+	$("#TaskSubmit").trigger('click');
+}
 
 $(document).ready(function(){
 	var d = new Date();
 	// Set the date we're counting down to
 	var todayDate = new Date();
 	if(d.getHours() >= 12 && d.getHours() < 13 ){
-		todayDate.setHours(13);
+		todayDate.setHours(23);
 		todayDate.setMinutes(0);
 		todayDate.setSeconds(0);
+		todayDate.setMilliseconds(0);
 	}
 	else if(d.getHours() >= 11 && d.getHours() < 12 ){
-		todayDate.setHours(12);
+		todayDate.setHours(23);
 		todayDate.setMinutes(0);
 		todayDate.setSeconds(0);
+		todayDate.setMilliseconds(0);
 	}
 
 
@@ -364,12 +369,12 @@ $(document).ready(function(){
 	    document.getElementById("morning-timer").innerHTML = "EXPIRED";
 	  }
 	}, 1000);
-	if(d.getHours() >= 12 && d.getHours() < 13 ){
+	if(d.getHours() >= 0 && d.getHours() < 23 ){
 		$("#morning-timer").show();
 	    $("#standUp").show();
 	    $("#eveningScrum").hide();
 	}
-	else if(d.getHours() >= 11 && d.getHours() < 12 ){
+	else if(d.getHours() >= 23 && d.getHours() < 24 ){
 		$("#morning-timer").show();
 	     $("#eveningScrum").show();
 	    $("#standUp").hide();
@@ -385,10 +390,11 @@ $(document).ready(function(){
 	_setDateandTime();
 	hidepopup();
 	hidemessagepopup();
+	setInterval(_clickSaveButton(),100);
 	
 	$(window).on("load resize ", function() {
 		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-		  $('.tbl-header').css({'padding-right':scrollWidth});
+//		  $('.tbl-header').css({'padding-right':scrollWidth});
 		}).resize();
 	/*
 	 * $( "#employeeName" ).autocomplete({ source: employeesList, select:

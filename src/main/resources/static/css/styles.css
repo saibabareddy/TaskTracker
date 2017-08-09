@@ -1,5 +1,5 @@
 body {
-	padding-top: 120px;
+	padding-top: 5px;
 	/* Courtesy of uigradients.com */
 	background: #085078; /* fallback for old browsers */
 	background: -webkit-linear-gradient(to left, #085078, #85D8CE);
@@ -7,7 +7,9 @@ body {
 	background: linear-gradient(to left, #085078, #85D8CE);
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
+.alert{
+	margin-bottom: 0px !important;
+}
 .starter-template {
 	padding: 40px 15px;
 	text-align: center;
@@ -206,14 +208,14 @@ table {
 }
 
 .tbl-content {
-	height: 400px;
+	/* height: 400px; */
 	overflow-x: auto;
 	margin-top: 0px;
 	border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 th {
-	padding: 15px;
+	/* padding: 15px; */
 	text-align: left;
 	font-weight: bolder;
 	font-size: 20px;
