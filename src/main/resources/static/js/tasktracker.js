@@ -133,7 +133,7 @@ function _generateEmpList(value){
 	var row=[];
 	row.length=0;
 	row.push("<td id='name'>"+value+"</td>");
-	row.push("<td id='task'><input type='text' placeholder='Enter Tasks...' class='form-control'/></td>");
+	row.push("<td id='task'><textarea col='4' row='50' placeholder='Enter Tasks...' class='form-control'></textarea></td>");
 	row.push("<td><div  class='saveButton glyphicon glyphicon-floppy-disk' id='TaskSubmit'/></td>");
 	$("<tr/>",{ html:row.join("") }).appendTo("#employeeTable tbody");
 	
@@ -145,7 +145,7 @@ function _generateTasksList(name,task){
 	row.push("<td  id='name'>"+name+"</td>");
 	row.push("<td id='task'>"+task+"</td>");
 	row.push('<td><select id="_status"><option selected="selected" value="">default</option><option value="true">Completed</option><option value="false">Not Completed</option></select></td>');
-	row.push("<td><div class='saveTaskButton glyphicon glyphicon-floppy-disk' id='TaskStatusSubmit'/></td>");
+	row.push("<td><div  class='saveTaskButton glyphicon glyphicon-floppy-disk' id='TaskStatusSubmit'/></td>");
 	$("<tr/>",{ html:row.join("") }).appendTo("#tasksTable tbody");
 	
 }
@@ -163,7 +163,7 @@ $(document).on('click', '.saveButton',function(e) {
         	}
         	if(_id === "task" )
         	{
-        	response[_id] = $(this).find('input').val();
+        	response[_id] = $(this).find('textarea').val();
         	}
         }); 
         response["date"] = getDate();
@@ -177,8 +177,9 @@ $(document).on('click', '.saveButton',function(e) {
   		    'contentType': 'application/json',
   		    'success' : function(data) {
   		    				console.log(data.status);
-  		    				var message = "Task Saved";
-  		    				messagepopup(message);
+  		    				var row=[];
+  		    				row.push("<td><div  class='saveTaskButton glyphicon glyphicon-floppy-disk' id='TaskStatusSubmit'/></td>");
+  		    				$("<tr/>",{ html:row.join("") }).appendTo("#tasksTable tbody");
   		    },
   			'error' : function(XMLHttpRequest, textStatus, errorThrown){
   				console.log(textStatus);
@@ -305,7 +306,7 @@ function showpopup(response){
 	 $("#popup_box #status").val(response.status);
 }
 
-function messagepopup(message){
+function messagepopup(){
 	$("#message_box").html("<br/><div align='center'>"+ message +"</div><br/><input type='button' class='ok_btn' id='ok_button' value='OK'/><br/><br/>");
 	 $("#message_box").fadeToggle();
 	 $("#message_box").css({"visibility":"visible","display":"block"});
@@ -313,7 +314,7 @@ function messagepopup(message){
 
 function hidemessagepopup()
 {
- $("#message_box").fadeToggle();
+
  $("#message_box").css({"visibility":"hidden","display":"none"});
 }
 
