@@ -325,8 +325,61 @@ function hidepopup()
 
 
 $(document).ready(function(){
-	$("#standUp").hide();
-	$("#eveningScrum").hide();
+	var d = new Date();
+	// Set the date we're counting down to
+	var todayDate = new Date();
+	if(d.getHours() >= 12 && d.getHours() < 13 ){
+		todayDate.setHours(13);
+		todayDate.setMinutes(0);
+		todayDate.setSeconds(0);
+	}
+	else if(d.getHours() >= 11 && d.getHours() < 12 ){
+		todayDate.setHours(12);
+		todayDate.setMinutes(0);
+		todayDate.setSeconds(0);
+	}
+
+
+	// Update the count down every 1 second
+	var x = setInterval(function() {
+
+	  // Get todays date and time
+	  var now = new Date().getTime();
+
+	  // Find the distance between now an the count down date
+	  var distance = todayDate.getTime() - now;
+
+	  // Time calculations for days, hours, minutes and seconds
+	  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+	  // Display the result in the element with id="demo"
+	  document.getElementById("morning-timer").innerHTML = hours + "h "
+	  + minutes + "m " + seconds + "s ";
+
+	  // If the count down is finished, write some text 
+	  if (distance < 0) {
+	    clearInterval(x);
+	    document.getElementById("morning-timer").innerHTML = "EXPIRED";
+	  }
+	}, 1000);
+	if(d.getHours() >= 12 && d.getHours() < 13 ){
+		$("#morning-timer").show();
+	    $("#standUp").show();
+	    $("#eveningScrum").hide();
+	}
+	else if(d.getHours() >= 11 && d.getHours() < 12 ){
+		$("#morning-timer").show();
+	     $("#eveningScrum").show();
+	    $("#standUp").hide();
+	}
+	else{
+		$("#morning-timer").hide();
+		$("#standUp").hide();
+		$("#eveningScrum").hide();
+	}
+
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
