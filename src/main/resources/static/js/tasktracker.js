@@ -132,23 +132,21 @@ function showEveningScrum(){
 function _generateEmpList(value){
 	var row=[];
 	row.length=0;
-	row.push("<td class='col-md-3'id='name'>"+value+"</td>");
-	row.push("<td class='col-md-6' id='task'><input type='text' placeholder='Enter Tasks...' class='form-control'/></td>");
-	row.push("<td class='col-md-6'><button type='button' class='saveButton' id='TaskSubmit'>Save</button></td>");
-	row.push("<td style='display:none' id='error'>hello</td>");
-	$("<tr/>",{ class:'morning_row',html:row.join("") }).appendTo("#employeeTable tbody");
+	row.push("<td id='name'>"+value+"</td>");
+	row.push("<td id='task'><input type='text' placeholder='Enter Tasks...' class='form-control'/></td>");
+	row.push("<td><div  class='saveButton glyphicon glyphicon-floppy-disk' id='TaskSubmit'/></td>");
+	$("<tr/>",{ html:row.join("") }).appendTo("#employeeTable tbody");
 	
 }
 
 function _generateTasksList(name,task){
 	var row=[];
 	row.length=0;
-	row.push("<td class='col-md-3' id='name'>"+name+"</td>");
-	row.push("<td class='col-md-3' id='task'>"+task+"</td>");
-	row.push('<td class="col-md-2"><select id="_status"><option selected="selected" value="">default</option><option value="true">Completed</option><option value="false">Not Completed</option></select></td>');
-	row.push("<td class='col-md-6'><button type='button' class='saveTaskButton' id='TaskStatusSubmit'>Save</button></td>");
-	row.push("<td style='display:none' id='error'>hello</td>");
-	$("<tr/>",{ class:'morning_row',html:row.join("") }).appendTo("#tasksTable tbody");
+	row.push("<td  id='name'>"+name+"</td>");
+	row.push("<td id='task'>"+task+"</td>");
+	row.push('<td><select id="_status"><option selected="selected" value="">default</option><option value="true">Completed</option><option value="false">Not Completed</option></select></td>');
+	row.push("<td><div class='saveTaskButton glyphicon glyphicon-floppy-disk' id='TaskStatusSubmit'/></td>");
+	$("<tr/>",{ html:row.join("") }).appendTo("#tasksTable tbody");
 	
 }
 
@@ -188,9 +186,7 @@ $(document).on('click', '.saveButton',function(e) {
   		  });
       }
       else{
-    	  $(this).parents('tr').find('#error').css("display", "block");
-    	  $(this).parents('tr').find('#error').addClass('col-md-6');
-    	  $(this).parents('tr').find('#error').text(" Task should not be null");
+    	  $('#standUp .error').text(" Task should not be null");
       }
         
     });
@@ -242,9 +238,7 @@ $(document).on('click', '.saveTaskButton',function(e) {
     }
     }
       else{
-    	  $(this).parents('tr').find('#error').css("display", "block");
-    	  $(this).parents('tr').find('#error').addClass('col-md-6');
-    	  $(this).parents('tr').find('#error').text(" Select a Status of completed or not completed");
+    	  $('#eveningScrum .error').text(" Select a Status of completed or not completed");
       }
         
     });
@@ -336,6 +330,11 @@ $(document).ready(function(){
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
+	
+	$(window).on("load resize ", function() {
+		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+		  $('.tbl-header').css({'padding-right':scrollWidth});
+		}).resize();
 	/*
 	 * $( "#employeeName" ).autocomplete({ source: employeesList, select:
 	 * function(event, ui) { var index = employeesList.indexOf(ui.item.value); }
