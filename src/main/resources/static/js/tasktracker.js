@@ -330,6 +330,8 @@ $(document).ready(function(){
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
+	hidepopup();
+	hidemessagepopup();
 	
 	$(window).on("load resize ", function() {
 		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
