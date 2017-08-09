@@ -28,7 +28,7 @@ function getDate(){
 	 return date
 }
 
-//to set date 
+// to set date
 function _setDateandTime(){
 	$("#date").css('text-align', 'justify');
 	$("#date").css('font-family', 'Times New Roman');
@@ -52,7 +52,7 @@ function _setDateandTime(){
 
 
 
-//get list of employees
+// get list of employees
 function _refreshEmployees() {
 	
 	$.ajax({
@@ -102,40 +102,30 @@ function _refreshTasks() {
 		  });
 	}
 
-/*$("#TaskSubmit").click(function( event ) {
-	  event.preventDefault();
-	  var incomingDate = $("#date").text();
-	  var incomingTime = $("#time").text();
-	  var incomingName = $("#employeeName").val();
-	  var incomingTask = $("#tasktext").val()
-	  var response ={
-			date : incomingDate,
-			time : incomingTime,
-	  		name : incomingName,
-	  		task : incomingTask
-	  }
-	  console.log(JSON.stringify(response, null, '\t'));
-	  $.ajax({
-		    'url' : '/tasktracker/tasks/insertTasks',
-		    'type' : 'POST',
-		    'data' : JSON.stringify(response),
-		    'contentType': 'application/json',
-		    'success' : function(data) {
-		    				console.log(data.status);
-		    },
-			'error' : function(XMLHttpRequest, textStatus, errorThrown){
-				console.log(textStatus);
-			}
-		  });
-	  
-	});*/
+/*
+ * $("#TaskSubmit").click(function( event ) { event.preventDefault(); var
+ * incomingDate = $("#date").text(); var incomingTime = $("#time").text(); var
+ * incomingName = $("#employeeName").val(); var incomingTask =
+ * $("#tasktext").val() var response ={ date : incomingDate, time :
+ * incomingTime, name : incomingName, task : incomingTask }
+ * console.log(JSON.stringify(response, null, '\t')); $.ajax({ 'url' :
+ * '/tasktracker/tasks/insertTasks', 'type' : 'POST', 'data' :
+ * JSON.stringify(response), 'contentType': 'application/json', 'success' :
+ * function(data) { console.log(data.status); }, 'error' :
+ * function(XMLHttpRequest, textStatus, errorThrown){ console.log(textStatus); }
+ * });
+ * 
+ * });
+ */
 
 function showStandUp(){
 	$("#eveningScrum").hide();
+	_refreshEmployees();
 	$("#standUp").show();
 }
 function showEveningScrum(){
 	$("#standUp").hide();
+	_refreshTasks();
 	$("#eveningScrum").show();
 }
 
@@ -283,8 +273,7 @@ $.ajax({
 	    'contentType': 'application/json',
 	    'success' : function(data) {
 	    	 			hidepopup();
-	    				console.log(data.status);
-	    				var message = "Reason Submitted";
+	    				var message = " Reason Submitted";
 	    				messagepopup(message);
 	    				
 	    },
@@ -305,7 +294,7 @@ $("#close_button").click(function(e){
 	  hidepopup();
 	 });
 
-$('.ok_btn').click(function(e){
+$(document).on('click', '.ok_btn',function(e){
 	e.preventDefault();
 	hidemessagepopup();
 	 });
@@ -347,20 +336,14 @@ $(document).ready(function(){
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
-	/*$( "#employeeName" ).autocomplete({ 
-	    source: employeesList,
-	    select: function(event, ui) {
-	        var index = employeesList.indexOf(ui.item.value);
-	    }
-	});
-	$( "#_employeeName" ).autocomplete({ 
-	    source: tasksList,
-	    select: function(event, ui) {
-	    	event.preventDefault();
-	    	$("#_employeeName").val(ui.item.label);
-	        $("#_tasktext").val(ui.item.value); 
-	    }
-	});*/
+	/*
+	 * $( "#employeeName" ).autocomplete({ source: employeesList, select:
+	 * function(event, ui) { var index = employeesList.indexOf(ui.item.value); }
+	 * }); $( "#_employeeName" ).autocomplete({ source: tasksList, select:
+	 * function(event, ui) { event.preventDefault();
+	 * $("#_employeeName").val(ui.item.label);
+	 * $("#_tasktext").val(ui.item.value); } });
+	 */
 		 
 
 });       	   
