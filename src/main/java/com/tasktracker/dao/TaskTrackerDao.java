@@ -320,7 +320,7 @@ public class TaskTrackerDao {
 		int id = TaskfindMaxId()+1;
 		int result;
 		String _existsornot = findTaskfExists(task);
-		if(_existsornot.equals("exists"))
+		if(_existsornot.equals("notexists"))
 		{
 		try {
 			conn = getConnection();
