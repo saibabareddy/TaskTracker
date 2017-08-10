@@ -353,7 +353,7 @@ function _clickSaveButton(){
 }
 
 $(document).ready(function(){
-	var d = new Date();
+/*	var d = new Date();
 	// Set the date we're counting down to
 	var todayDate = new Date();
 	if(d.getHours() >= 12 && d.getHours() < 13 ){
@@ -409,7 +409,9 @@ $(document).ready(function(){
 		$("#standUp").hide();
 		$("#eveningScrum").hide();
 	}
-
+*/
+	$("#eveningScrum").hide();
+	$("#standUp").hide();
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
@@ -419,8 +421,34 @@ $(document).ready(function(){
 	
 	$(window).on("load resize ", function() {
 		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-//		  $('.tbl-header').css({'padding-right':scrollWidth});
+		  $('.tbl-header').css({'padding-right':scrollWidth});
 		}).resize();
+	
+	$("#morning-timer").click(function(e){
+		e.preventDefault();
+		$("#morning-timer").hide();
+		$("#evening-timer").hide();
+		$("#eveningScrum").hide();
+		 $("#standUp").show();
+		 });
+	$("#evening-timer").click(function(e){
+		e.preventDefault();
+		$("#morning-timer").hide();
+		$("#evening-timer").hide();
+		$("#standUp").hide();
+		 $("#eveningScrum").show();
+		 });
+	
+	$("#progressTimer").progressTimer({
+	    timeLimit: 1800,
+	    warningThreshold: 1600,
+	    baseStyle: 'progress-bar-warning',
+	    warningStyle: 'progress-bar-danger',
+	    completeStyle: 'progress-bar-info',
+	    onFinish: function() {
+	        console.log("I'm done");
+	    }
+	});
 	/*
 	 * $( "#employeeName" ).autocomplete({ source: employeesList, select:
 	 * function(event, ui) { var index = employeesList.indexOf(ui.item.value); }
