@@ -372,7 +372,7 @@ public class TaskTrackerDao {
 		PreparedStatement stmt = null;
 		String status=findStatusifExists(task);
 		int result;
-		if(status.equals("true") || status.equals("false"))
+		if(!status.equals("true") || !status.equals("false"))
 		{
 		try {
 			conn = getConnection();
