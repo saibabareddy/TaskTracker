@@ -449,6 +449,16 @@ $(document).ready(function(){
 	        console.log("I'm done");
 	    }
 	});
+	$("#_progressTimer").progressTimer({
+	    timeLimit: 1800,
+	    warningThreshold: 1600,
+	    baseStyle: 'progress-bar-warning',
+	    warningStyle: 'progress-bar-danger',
+	    completeStyle: 'progress-bar-info',
+	    onFinish: function() {
+	        console.log("I'm done");
+	    }
+	});
 	/*
 	 * $( "#employeeName" ).autocomplete({ source: employeesList, select:
 	 * function(event, ui) { var index = employeesList.indexOf(ui.item.value); }
