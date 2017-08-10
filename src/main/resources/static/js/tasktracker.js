@@ -177,9 +177,16 @@ $(document).on('click', '.saveButton',function(e) {
   		    'contentType': 'application/json',
   		    'success' : function(data) {
   		    				console.log(data.status);
-  		    				var row=[];
-  		    				row.push("<td><div  class='saveTaskButton glyphicon glyphicon-floppy-disk' id='TaskStatusSubmit'/></td>");
-  		    				$("<tr/>",{ html:row.join("") }).appendTo("#tasksTable tbody");
+  		    				if(data.status === "true")
+  		    				{
+  		    				var message = "Task Saved";
+  		    				messagepopup(message);
+  		    				}
+  		    				if(data.status === "alreadyExists")
+  		    				{
+  		    					var message = "Already Saved your task";
+  		    					messagepopup(message);
+  		    				}
   		    },
   			'error' : function(XMLHttpRequest, textStatus, errorThrown){
   				console.log(textStatus);
@@ -225,9 +232,17 @@ $(document).on('click', '.saveTaskButton',function(e) {
   		    'data' : JSON.stringify(response),
   		    'contentType': 'application/json',
   		    'success' : function(data) {
-  		    				console.log(data.status);
-  		    				var message = "Status Submitted";
-  		    				messagepopup(message);
+  		    	console.log(data.status);
+  				if(data.status === "true")
+  				{
+  				var message = "Status Saved";
+  				messagepopup(message);
+  				}
+  				if(data.status === "alreadyExists")
+  				{
+  					var message= "Already Saved your Status";
+  					messagepopup(message);
+  				}
   		    },
   			'error' : function(XMLHttpRequest, textStatus, errorThrown){
   				console.log(textStatus);
@@ -268,8 +283,17 @@ $.ajax({
 	    'contentType': 'application/json',
 	    'success' : function(data) {
 	    	 			hidepopup();
-	    				var message = " Reason Submitted";
-	    				messagepopup(message);
+	    	 			console.log(data.status);
+	      				if(data.status === "true")
+	      				{
+	      				var message = "Status Saved";
+	      				messagepopup(message);
+	      				}
+	      				if(data.status === "alreadyExists")
+	      				{
+	      					var message = "Already Saved your Status";
+	      					messagepopup(message);
+	      				}
 	    				
 	    },
 		'error' : function(XMLHttpRequest, textStatus, errorThrown){
@@ -306,7 +330,7 @@ function showpopup(response){
 	 $("#popup_box #status").val(response.status);
 }
 
-function messagepopup(){
+function messagepopup(message){
 	$("#message_box").html("<br/><div align='center'>"+ message +"</div><br/><input type='button' class='ok_btn' id='ok_button' value='OK'/><br/><br/>");
 	 $("#message_box").fadeToggle();
 	 $("#message_box").css({"visibility":"visible","display":"block"});

@@ -47,6 +47,9 @@ public class TaskTrackerController {
 		{
 			incomingTask.setStatus("true");
 		}
+		if(status == 2) {
+			incomingTask.setStatus("alreadyExists");
+		}
 		return incomingTask;
 		
 	}
@@ -60,6 +63,9 @@ public class TaskTrackerController {
 		if(status == 1)
 		{
 			incomingTask.setStatus("true");
+		}
+		if(status == 2) {
+			incomingTask.setStatus("alreadyExists");
 		}
 		return incomingTask;
 		

@@ -51,6 +51,8 @@ public class TaskTrackerDao {
 	private static final String INSERT_TASK = "INSERT INTO Tasks(id,name,task,date,time,status,reason) VALUES(?,?,?,?,?,?,?)";
 	private static final String UPDATE_TASK = "UPDATE Tasks SET status = ?,reason=? WHERE date = ? and name =?";
 	private static final String UPDATE = "UPDATE Employee SET name=? WHERE id=?";
+	private static final String FIND_TASK = "SELECT name,date from Tasks where name=? and date=?";
+	private static final String FIND_TASK_STATUS = "SELECT status from Tasks where name=? and date=?";
 	
 	
 	public int delete(int id) {
@@ -229,6 +231,66 @@ public class TaskTrackerDao {
 		}
 	}
 	
+	public String findTaskfExists(Tasks task) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(FIND_TASK);
+			stmt.setString(1, task.getName());
+			stmt.setString(2, task.getDate());
+			ResultSet rs = stmt.executeQuery();
+			String result;
+			boolean empty = true;
+			while( rs.next() ) {
+			    // ResultSet processing here
+			    empty = false;
+			    result = "exists";
+			    return result;
+			}
+
+			if( empty ) {
+			    // Empty result set
+				 result = "notexists";
+				    return result;
+			}
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+		return null;
+	}
+	
+	public String findStatusifExists(Tasks task) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(FIND_TASK_STATUS);
+			stmt.setString(1, task.getName());
+			stmt.setString(2, task.getDate());
+			ResultSet rs = stmt.executeQuery();
+			String result;
+			while( rs.next() ) {
+			    result=rs.getString(1);
+			    return result;
+			}
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			close(stmt);
+			close(conn);
+		}
+		return null;
+	}
+	
+	
 	public int insertEmployee(String name) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -251,11 +313,15 @@ public class TaskTrackerDao {
 		return result;
 	}
 	
+	
 	public int insertTask(Tasks task) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int id = TaskfindMaxId()+1;
 		int result;
+		String _existsornot = findTaskfExists(task);
+		if(_existsornot.equals("exists"))
+		{
 		try {
 			conn = getConnection();
 			stmt = conn.prepareStatement(INSERT_TASK);
@@ -274,6 +340,10 @@ public class TaskTrackerDao {
 		} finally {
 			close(stmt);
 			close(conn);
+		}
+		}
+		else {
+			result= 2;
 		}
 		return result;
 	}
@@ -300,7 +370,10 @@ public class TaskTrackerDao {
 	public int updateTask(Tasks task) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+		String status=findStatusifExists(task);
+		int result;
+		if(status.equals("true") || status.equals("false"))
+		{
 		try {
 			conn = getConnection();
 			stmt = conn.prepareStatement(UPDATE_TASK);
@@ -309,13 +382,19 @@ public class TaskTrackerDao {
 			stmt.setString(3, task.getDate());
 			stmt.setString(4, task.getName());
 			return stmt.executeUpdate();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			// e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			close(stmt);
 			close(conn);
 		}
+		} 
+		else {
+			return 2;
+		}
+		
 	}
 	
 	
