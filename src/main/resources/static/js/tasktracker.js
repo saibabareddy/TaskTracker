@@ -134,7 +134,7 @@ function _generateEmpList(value){
 	row.length=0;
 	row.push("<td id='name'>"+value+"</td>");
 	row.push("<td id='task'><textarea col='4' row='50' placeholder='Enter Tasks...' class='form-control'></textarea></td>");
-	row.push("<td><div  class='saveButton glyphicon glyphicon-floppy-disk' id='TaskSubmit'/></td>");
+	row.push('<td><button type="button" class="saveButton btn btn-success btn-lg" id="TaskStatusSubmit">Save <span class="glyphicon glyphicon-floppy-save"></span></button></td>');
 	$("<tr/>",{ html:row.join("") }).appendTo("#employeeTable tbody");
 	
 }
@@ -145,7 +145,7 @@ function _generateTasksList(name,task){
 	row.push("<td  id='name'>"+name+"</td>");
 	row.push("<td id='task'>"+task+"</td>");
 	row.push('<td><select id="_status"><option selected="selected" value="">default</option><option value="true">Completed</option><option value="false">Not Completed</option></select></td>');
-	row.push("<td><div  class='saveTaskButton glyphicon glyphicon-floppy-disk' id='TaskStatusSubmit'/></td>");
+	row.push('<td><button type="button" class="saveTaskButton btn btn-success btn-lg" id="TaskStatusSubmit">Save <span class="glyphicon glyphicon-floppy-save"></span></button></td>"');
 	$("<tr/>",{ html:row.join("") }).appendTo("#tasksTable tbody");
 	
 }
