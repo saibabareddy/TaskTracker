@@ -418,6 +418,8 @@ function timer(countDownTime,htmlElement,htmlElement1,htmlElement2){
 	}, 1000);
 }
 
+/*
+// Using this logic to show tables
 $("#morning").click(function(e){
 	e.preventDefault();
 	$("#standUp").fadeIn(3000);
@@ -429,6 +431,8 @@ $("#morning").click(function(e){
 	var htmlElement2 =".morningTime";
 	timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
 	 });
+
+// Using this logic to show tables
 $("#evening").click(function(e){
 	$("#eveningScrum").fadeIn(3000);
 	countDownTime = new Date();
@@ -437,12 +441,48 @@ $("#evening").click(function(e){
 	var htmlElement1 ="#eveningScrum";
 	var htmlElement2 =".eveningTime";
 	timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
-	 });
+	 }); */
+
+//logic to run morning show and hide and evening show and hide for 3 minutes each at a interval of 6 minutes 30 seconds for testing
+function showHideToggle(){
+setInterval(function() {
+	showEvningScrum();	
+}, 378000);
+}
+
+function showEvningScrum(){
+	setTimeout(function(){
+		$("#standUp").fadeOut(3000);
+		$("#eveningScrum").fadeIn(3000);
+		countDownTime = new Date();
+		countDownTime.setMinutes(countDownTime.getUTCMinutes() + 3); // same comment as above
+		var htmlElement = ".evening_Timer";
+		var htmlElement1 ="#eveningScrum";
+		var htmlElement2 =".eveningTime";
+		timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
+	}180000);
+}
+	
+function showMorningStandup{
+	setTimeout(function(){
+	  $("#eveningScrum").fadeOut(3000);
+	  $("#standUp").fadeIn(3000);
+	  countDownTime = new Date();
+	  countDownTime.setMinutes(countDownTime.getUTCMinutes() + 3); // original 30 minutes should be added for testing we are adding 3
+	  var htmlElement = ".morning_Timer";
+	  var htmlElement1 ="#standUp";
+	  var htmlElement2 =".morningTime";
+	  timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
+		showEvningScrum();
+						
+	}, 180000);
+}
+
 $(document).ready(function(){
 	$("#standUp").hide();
 	$("#eveningScrum").hide();
 	var date = new Date(); // Create a Date object to find out what time it is
-	
+	//This is logic for India time 9.30 am and 3.30pm, if you want to try this logic copy and try it as a new function
 		/*if(date.getUTCHours() === 4 && date.getUTCMinutes() === 0){ 
 			$("#standUp").fadeIn(3000);
 			countDownTime = new Date();
@@ -464,6 +504,12 @@ $(document).ready(function(){
 	_setDateandTime();
 	hidepopup();
 	hidemessagepopup();
+	
+	
+	console.log("HELLO");
+	//logic for toggling screen 1 and 2
+	showHideToggle();
+	
 	$(window).on("load resize ", function() {
 		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
 		  $('.tbl-header').css({'padding-right':scrollWidth});
