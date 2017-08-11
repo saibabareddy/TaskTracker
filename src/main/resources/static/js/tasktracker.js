@@ -479,19 +479,20 @@ function showMorningStandup(){
 	  showEvningScrum();
 }
 
-function morningTimeScreen(date){
+function morningTimeScreen(){
 	var date = new Date();
 	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 10){ 
 			$("#standUp").fadeIn(3000);
 			countDownTime = new Date();
 			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 15);
 			var htmlElement = ".morning_Timer";
-			var htmlElement1 ="#standUp";
-			timer(countDownTime.getTime(),htmlElement,htmlElement1);
+	  		var htmlElement1 ="#standUp";
+	  		var htmlElement2 =".morningTime";
+	  		timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
 		}
 }
 
-function eveningTimeScreen(date){
+function eveningTimeScreen(){
 	var date = new Date();
 	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 30){ 
 			$("#eveningScrum").fadeIn(3000);
@@ -499,7 +500,8 @@ function eveningTimeScreen(date){
 			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 15);
 			var htmlElement = ".evening_Timer";
 			var htmlElement1 ="#eveningScrum";
-			timer(countDownTime.getTime(),htmlElement,htmlElement1);
+			var htmlElement2 =".eveningTime";
+			timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
 		}
 }
 
