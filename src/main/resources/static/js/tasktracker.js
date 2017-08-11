@@ -480,6 +480,7 @@ function showMorningStandup(){
 }
 
 function morningTimeScreen(date){
+	var date = new Date();
 	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 10){ 
 			$("#standUp").fadeIn(3000);
 			countDownTime = new Date();
@@ -491,6 +492,7 @@ function morningTimeScreen(date){
 }
 
 function eveningTimeScreen(date){
+	var date = new Date();
 	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 30){ 
 			$("#eveningScrum").fadeIn(3000);
 			countDownTime = new Date();
@@ -506,12 +508,12 @@ $(document).ready(function(){
 	$("#eveningScrum").hide();
 	var date = new Date(); // Create a Date object to find out what time it is
 	//This is logic for India time 9.30 am and 3.30pm, if you want to try this logic copy and try it as a new function
-	setInterval(function(date) {
-		morningTimeScreen(date);	
+	setInterval(function() {
+		morningTimeScreen();	
 	}, 60000);
 	
-	setInterval(function(date) {
-		eveningTimeScreen(date);	
+	setInterval(function() {
+		eveningTimeScreen();	
 	}, 60000);
 	_refreshEmployees();
 	_refreshTasks();
