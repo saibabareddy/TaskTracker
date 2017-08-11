@@ -451,6 +451,8 @@ setInterval(function() {
 }
 
 function showEvningScrum(){
+	_refreshEmployees();
+	_refreshTasks();
 	setTimeout(function(){
 		$("#standUp").fadeOut(3000);
 		$("#eveningScrum").fadeIn(3000);
@@ -464,6 +466,8 @@ function showEvningScrum(){
 }
 	
 function showMorningStandup{
+	_refreshEmployees();
+	_refreshTasks();
 	setTimeout(function(){
 	  $("#eveningScrum").fadeOut(3000);
 	  $("#standUp").fadeIn(3000);
