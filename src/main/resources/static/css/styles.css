@@ -440,11 +440,9 @@ td {
 }
 
 #progressTimer {
-<<<<<<< HEAD
+
   width: 40%;
   height: 60px;
-=======
-<<<<<<< HEAD
   width: 100%;
   height: 20px;
   transform:rotate(180deg);
@@ -452,11 +450,8 @@ td {
 #_progressTimer {
   width: 100%;
   height: 20px;
-=======
   width: 40%;
   height: 60px;
->>>>>>> refs/remotes/origin/develop
->>>>>>> refs/remotes/origin/master
   transform:rotate(180deg);
 }
 
