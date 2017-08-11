@@ -477,9 +477,8 @@ td {
 
 
 #_myProgress {
-  width: 400px;
-  background-color: #000000;
-  padding: 20px; 
+ width: 400px;
+  background-color: #000000; 
   position:relative;
   z-index: 1;
   height:20px;
