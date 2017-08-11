@@ -361,7 +361,7 @@ function hidepopup()
 function progressUpdater(htmlElement){
 	//set progress bar
 	   var start = new Date();
-	   var maxTime = 180000;
+	   var maxTime = 900000;
 	   var timeoutVal = Math.floor(maxTime/100);
 	   animateUpdate();
 
@@ -484,32 +484,32 @@ $(document).ready(function(){
 	$("#eveningScrum").hide();
 	var date = new Date(); // Create a Date object to find out what time it is
 	//This is logic for India time 9.30 am and 3.30pm, if you want to try this logic copy and try it as a new function
-		/*if(date.getUTCHours() === 4 && date.getUTCMinutes() === 0){ 
+	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 10){ 
 			$("#standUp").fadeIn(3000);
 			countDownTime = new Date();
-			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 15);
 			var htmlElement = ".morning_Timer";
 			var htmlElement1 ="#standUp";
 			timer(countDownTime.getTime(),htmlElement,htmlElement1);
-		}, 30000); 
-		if(date.getUTCHours() === 10 && date.getUTCMinutes() === 0){ 
+		}, 60000); 
+		if(date.getUTCHours() === 15 && date.getUTCMinutes() === 30){ 
 			$("#eveningScrum").fadeIn(3000);
 			countDownTime = new Date();
-			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 15);
 			var htmlElement = ".evening_Timer";
 			var htmlElement1 ="#eveningScrum";
 			timer(countDownTime.getTime(),htmlElement,htmlElement1);
-		}, 30000);*/
+		}, 60000);
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
 	hidepopup();
 	hidemessagepopup();
 	
-	showMorningStandup();
+	/*showMorningStandup();
 	console.log("HELLO");
 	//logic for toggling screen 1 and 2
-	showHideToggle();
+	showHideToggle(); */
 	
 	$(window).on("load resize ", function() {
 		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
