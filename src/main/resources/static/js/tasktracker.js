@@ -451,8 +451,6 @@ function showHideToggle(){
 }
 
 function showEvningScrum(){
-	_refreshEmployees();
-	_refreshTasks();
 	setTimeout(function(){
 		$("#standUp").fadeOut(3000);
 		$("#eveningScrum").fadeIn(3000);
@@ -466,8 +464,6 @@ function showEvningScrum(){
 }
 	
 function showMorningStandup(){
-	_refreshEmployees();
-	_refreshTasks();
 	  $("#eveningScrum").fadeOut(3000);
 	  $("#standUp").fadeIn(3000);
 	  countDownTime = new Date();
@@ -506,8 +502,29 @@ function eveningTimeScreen(){
 }
 
 $(document).ready(function(){
-	$("#standUp").hide();
-	$("#eveningScrum").hide();
+	
+	setInterval(function() {
+		var date = new Date();
+		if(date.getUTCHours() === 19 and date.getUTCMinutes >= 30){
+		$("#standUp").show();
+		$("#eveningScrum").hide();
+		}
+		else{
+		  $("#standUp").hide();
+		  $("#eveningScrum").hide();
+		}
+	},100);
+	setInterval(function() {
+		var date = new Date();
+		if(date.getUTCHours() === 20 and date.getUTCMinutes >= 30){
+		$("#standUp").hide();
+		$("#eveningScrum").show();
+		}
+		else{
+		  $("#standUp").hide();
+		  $("#eveningScrum").hide();
+		}
+	},100);
 	var date = new Date(); // Create a Date object to find out what time it is
 	//This is logic for India time 9.30 am and 3.30pm, if you want to try this logic copy and try it as a new function
 	setInterval(function() {
