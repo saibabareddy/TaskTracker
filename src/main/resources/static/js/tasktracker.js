@@ -505,7 +505,7 @@ $(document).ready(function(){
 	
 	setInterval(function() {
 		var date = new Date();
-		if(date.getUTCHours() === 19 and date.getUTCMinutes() >= 30){
+		if(date.getUTCHours() === 19 && date.getUTCMinutes() >= 30){
 		$("#standUp").show();
 		$("#eveningScrum").hide();
 		}
@@ -516,7 +516,7 @@ $(document).ready(function(){
 	},100);
 	setInterval(function() {
 		var date = new Date();
-		if(date.getUTCHours() === 20 and date.getUTCMinutes() >= 30){
+		if(date.getUTCHours() === 20 && date.getUTCMinutes() >= 30){
 		$("#standUp").hide();
 		$("#eveningScrum").show();
 		}
