@@ -24,8 +24,17 @@ function getDate(){
 	 var y = addZero(d.getUTCFullYear());
 	 var _d = addZero(d.getUTCDate());
 	 var m = addZero(d.getUTCMonth()+1);
-	 var date = _d+"-"+m+"-"+y
+	 var date = m+"-"+_d+"-"+y
 	 return date
+}
+
+function get30Minutesplus(){
+	var d = new Date();    
+	var h = addZero(d.getUTCHours());
+	var m = addZero(d.getUTCMinutes()+30);
+	var s = addZero(d.getUTCSeconds());
+	var time =  h + ":" + m + ":" + s;
+	return time;
 }
 
 // to set date
@@ -348,125 +357,111 @@ function hidepopup()
  $("#popup_box").css({"visibility":"hidden","display":"none"});
 }
 
-function _clickSaveButton(){
-	$("#TaskSubmit").trigger('click');
+function progressUpdater(htmlElement){
+	//set progress bar
+	   var start = new Date();
+	   var maxTime = 1800000;
+	   var timeoutVal = Math.floor(maxTime/100);
+	   animateUpdate();
+
+	   function updateProgress(percentage) {
+	       $(htmlElement).css("width", percentage + "%");
+	   }
+
+	   function animateUpdate() {
+	       var now = new Date();
+	       var timeDiff = now.getTime() - start.getTime();
+	       var perc = Math.round((timeDiff/maxTime)*100);
+	       console.log(perc);
+	         if (perc <= 100) {
+	          updateProgress(perc);
+	          setTimeout(animateUpdate, timeoutVal);
+	         }
+	   }
+	   
 }
 
-$(document).ready(function(){
-/*	var d = new Date();
-	// Set the date we're counting down to
-	var todayDate = new Date();
-	if(d.getHours() >= 12 && d.getHours() < 13 ){
-		todayDate.setHours(23);
-		todayDate.setMinutes(0);
-		todayDate.setSeconds(0);
-		todayDate.setMilliseconds(0);
-	}
-	else if(d.getHours() >= 11 && d.getHours() < 12 ){
-		todayDate.setHours(23);
-		todayDate.setMinutes(0);
-		todayDate.setSeconds(0);
-		todayDate.setMilliseconds(0);
-	}
 
-
+function timer(countDownTime,htmlElement,htmlElement1,htmlElement2){
 	// Update the count down every 1 second
 	var x = setInterval(function() {
 
-	  // Get todays date and time
-	  var now = new Date().getTime();
-
-	  // Find the distance between now an the count down date
-	  var distance = todayDate.getTime() - now;
-
-	  // Time calculations for days, hours, minutes and seconds
-	  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-	  // Display the result in the element with id="demo"
-	  document.getElementById("morning-timer").innerHTML = hours + "h "
-	  + minutes + "m " + seconds + "s ";
-
-	  // If the count down is finished, write some text 
-	  if (distance < 0) {
-	    clearInterval(x);
-	    document.getElementById("morning-timer").innerHTML = "EXPIRED";
-	  }
+	    // Get todays date and time
+	    var now = new Date().getTime();
+	    
+	    // Find the distance between now an the count down date
+	    var distance = countDownTime - now;
+	    
+	    // Time calculations for days, hours, minutes and seconds
+	    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	    
+	    // Output the result in an element with id="demo"
+	   $(htmlElement2).text(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
+	   progressUpdater(htmlElement);
+	    
+	    // If the count down is over, write some text 
+	    if (distance < 0) {
+	        clearInterval(x);
+	        $(htmlElement2).text("Closing");
+	        $(htmlElement1).fadeOut(3000);
+	    }
 	}, 1000);
-	if(d.getHours() >= 0 && d.getHours() < 23 ){
-		$("#morning-timer").show();
-	    $("#standUp").show();
-	    $("#eveningScrum").hide();
-	}
-	else if(d.getHours() >= 23 && d.getHours() < 24 ){
-		$("#morning-timer").show();
-	     $("#eveningScrum").show();
-	    $("#standUp").hide();
-	}
-	else{
-		$("#morning-timer").hide();
-		$("#standUp").hide();
-		$("#eveningScrum").hide();
-	}
-*/
-	$("#eveningScrum").hide();
+}
+
+$("#morning").click(function(e){
+	e.preventDefault();
+	$("#standUp").fadeIn(3000);
+	countDownTime = new Date();
+	countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+	var htmlElement = ".morning_Timer";
+	var htmlElement1 ="#standUp";
+	var htmlElement2 =".morningTime";
+	timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
+	 });
+$("#evening").click(function(e){
+	$("#eveningScrum").fadeIn(3000);
+	countDownTime = new Date();
+	countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+	var htmlElement = ".evening_Timer";
+	var htmlElement1 ="#eveningScrum";
+	var htmlElement2 =".eveningTime";
+	timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
+	 });
+$(document).ready(function(){
 	$("#standUp").hide();
+	$("#eveningScrum").hide();
+	var date = new Date(); // Create a Date object to find out what time it is
+	
+		/*if(date.getUTCHours() === 4 && date.getUTCMinutes() === 0){ 
+			$("#standUp").fadeIn(3000);
+			countDownTime = new Date();
+			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+			var htmlElement = ".morning_Timer";
+			var htmlElement1 ="#standUp";
+			timer(countDownTime.getTime(),htmlElement,htmlElement1);
+		}, 30000); 
+		if(date.getUTCHours() === 10 && date.getUTCMinutes() === 0){ 
+			$("#eveningScrum").fadeIn(3000);
+			countDownTime = new Date();
+			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+			var htmlElement = ".evening_Timer";
+			var htmlElement1 ="#eveningScrum";
+			timer(countDownTime.getTime(),htmlElement,htmlElement1);
+		}, 30000);*/
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
 	hidepopup();
 	hidemessagepopup();
-	setInterval(_clickSaveButton(),100);
-	
 	$(window).on("load resize ", function() {
 		  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
 		  $('.tbl-header').css({'padding-right':scrollWidth});
 		}).resize();
 	
-	$("#morning-timer").click(function(e){
-		e.preventDefault();
-		$("#morning-timer").hide();
-		$("#evening-timer").hide();
-		$("#eveningScrum").hide();
-		 $("#standUp").show();
-		 });
-	$("#evening-timer").click(function(e){
-		e.preventDefault();
-		$("#morning-timer").hide();
-		$("#evening-timer").hide();
-		$("#standUp").hide();
-		 $("#eveningScrum").show();
-		 });
 	
-	$("#progressTimer").progressTimer({
-	    timeLimit: 1800,
-	    warningThreshold: 1600,
-	    baseStyle: 'progress-bar-warning',
-	    warningStyle: 'progress-bar-danger',
-	    completeStyle: 'progress-bar-info',
-	    onFinish: function() {
-	        console.log("I'm done");
-	    }
-	});
-	$("#_progressTimer").progressTimer({
-	    timeLimit: 1800,
-	    warningThreshold: 1600,
-	    baseStyle: 'progress-bar-warning',
-	    warningStyle: 'progress-bar-danger',
-	    completeStyle: 'progress-bar-info',
-	    onFinish: function() {
-	        console.log("I'm done");
-	    }
-	});
-	/*
-	 * $( "#employeeName" ).autocomplete({ source: employeesList, select:
-	 * function(event, ui) { var index = employeesList.indexOf(ui.item.value); }
-	 * }); $( "#_employeeName" ).autocomplete({ source: tasksList, select:
-	 * function(event, ui) { event.preventDefault();
-	 * $("#_employeeName").val(ui.item.label);
-	 * $("#_tasktext").val(ui.item.value); } });
-	 */
 		 
 
 });       	   

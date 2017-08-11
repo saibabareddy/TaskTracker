@@ -7,12 +7,12 @@
 	<!-- <div th:replace="common/navbar :: common-navbar"></div> -->
 
 	<div class="container-fluid">
-		<div id="morning-timer"> Morning Scrum</div>
-		<div id="evening-timer"> Evening Scrum</div>
+	<div id="morning">Morning</div>
+	<div id="evening">Evening</div>
 		<div id="standUp">
-			<div id="progressTimer"></div><br/>
-<!-- 			<div class="caption">Morning Scrum:</div> -->
-			 <div class="error alert alert-danger"></div>		
+			<br />
+			<div><div id="myProgress"><div class="morning_Timer" id="myBar"><div id="progressTimer" class="morningTime"></div></div></div></div>
+			<div class="error alert alert-danger"></div>
 			<div class="tbl-header">
 				<table cellpadding="0" cellspacing="0" border="0">
 					<thead>
@@ -32,10 +32,10 @@
 		</div>
 
 		<div id="eveningScrum">
-			<div id="_progressTimer"></div><br/>
-<!-- 				<div class="caption">Evening Scrum:</div> -->
-	<div class="error alert alert-danger"></div>
-			<div class="tbl-header">		
+			<div><div id="myProgress"><div class="evening_Timer" id="myBar"><div id="progressTimer" class="eveningTime"></div></div></div></div>
+			<br />
+			<div class="error alert alert-danger"></div>
+			<div class="tbl-header">
 				<table cellpadding="0" cellspacing="0" border="0">
 					<thead>
 						<tr>
@@ -76,9 +76,9 @@
 		</div>
 	</div>
 
-<div align="center">
+	<div align="center">
 		<div id="message_box" class="drop-shadow raised"></div>
-	</div> 
+	</div>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
