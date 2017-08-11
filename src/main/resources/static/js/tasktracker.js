@@ -361,7 +361,7 @@ function hidepopup()
 function progressUpdater(htmlElement){
 	//set progress bar
 	   var start = new Date();
-	   var maxTime = 1800000;
+	   var maxTime = 180000;
 	   var timeoutVal = Math.floor(maxTime/100);
 	   animateUpdate();
 
@@ -422,7 +422,8 @@ $("#morning").click(function(e){
 	e.preventDefault();
 	$("#standUp").fadeIn(3000);
 	countDownTime = new Date();
-	countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+
+	countDownTime.setMinutes(countDownTime.getUTCMinutes() + 3); // original 30 minutes should be added for testing we are adding 3
 	var htmlElement = ".morning_Timer";
 	var htmlElement1 ="#standUp";
 	var htmlElement2 =".morningTime";
@@ -431,7 +432,7 @@ $("#morning").click(function(e){
 $("#evening").click(function(e){
 	$("#eveningScrum").fadeIn(3000);
 	countDownTime = new Date();
-	countDownTime.setMinutes(countDownTime.getUTCMinutes() + 30);
+	countDownTime.setMinutes(countDownTime.getUTCMinutes() + 3); // same comment as above
 	var htmlElement = ".evening_Timer";
 	var htmlElement1 ="#eveningScrum";
 	var htmlElement2 =".eveningTime";
