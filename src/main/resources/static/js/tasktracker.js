@@ -479,11 +479,7 @@ function showMorningStandup(){
 	  showEvningScrum();
 }
 
-$(document).ready(function(){
-	$("#standUp").hide();
-	$("#eveningScrum").hide();
-	var date = new Date(); // Create a Date object to find out what time it is
-	//This is logic for India time 9.30 am and 3.30pm, if you want to try this logic copy and try it as a new function
+function morningTimeScreen(date){
 	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 10){ 
 			$("#standUp").fadeIn(3000);
 			countDownTime = new Date();
@@ -491,15 +487,32 @@ $(document).ready(function(){
 			var htmlElement = ".morning_Timer";
 			var htmlElement1 ="#standUp";
 			timer(countDownTime.getTime(),htmlElement,htmlElement1);
-		}, 60000); 
-		if(date.getUTCHours() === 15 && date.getUTCMinutes() === 30){ 
+		}
+}
+
+function eveningTimeScreen(date){
+	if(date.getUTCHours() === 15 && date.getUTCMinutes() === 30){ 
 			$("#eveningScrum").fadeIn(3000);
 			countDownTime = new Date();
 			countDownTime.setMinutes(countDownTime.getUTCMinutes() + 15);
 			var htmlElement = ".evening_Timer";
 			var htmlElement1 ="#eveningScrum";
 			timer(countDownTime.getTime(),htmlElement,htmlElement1);
-		}, 60000);
+		}
+}
+
+$(document).ready(function(){
+	$("#standUp").hide();
+	$("#eveningScrum").hide();
+	var date = new Date(); // Create a Date object to find out what time it is
+	//This is logic for India time 9.30 am and 3.30pm, if you want to try this logic copy and try it as a new function
+	setInterval(function(date) {
+		morningTimeScreen(date);	
+	}, 60000);
+	
+	setInterval(function(date) {
+		eveningTimeScreen(date);	
+	}, 60000);
 	_refreshEmployees();
 	_refreshTasks();
 	_setDateandTime();
