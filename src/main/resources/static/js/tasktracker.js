@@ -446,7 +446,7 @@ $("#evening").click(function(e){
 //logic to run morning show and hide and evening show and hide for 3 minutes each at a interval of 6 minutes 30 seconds for testing
 function showHideToggle(){
 setInterval(function() {
-	showEvningScrum();	
+	showMorningStandup();	
 }, 378000);
 }
 
@@ -509,7 +509,7 @@ $(document).ready(function(){
 	hidepopup();
 	hidemessagepopup();
 	
-	
+	showMorningStandup();
 	console.log("HELLO");
 	//logic for toggling screen 1 and 2
 	showHideToggle();
