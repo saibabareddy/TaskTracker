@@ -441,10 +441,8 @@ td {
 
 #myProgress {
   width: 400px;
-  background-color: #000000;
-  border-radius: 15px 50px;
+  background-color: #000000; 
   position:relative;
-  padding: 20px; 
   z-index: 1;
   height:20px;
 }
@@ -453,28 +451,65 @@ td {
   width: 400px;
   height: 20px;
   text-align:center;
-  margin-top:0%;
-  margin-left:0%;
+  position: absolute;
+  top: 0;
+  left: 0;
   font-weight:bolder;
   font-size:medium;
   color:white;
-  z-index: 2;
-  background-color: #00ff40;
-  border-radius: 15px 50px;
-  padding: 20px; 
+  z-index: 4;
+  background: #00ff00;
 }
 
 #progressTimer {
   width: 400px;
   height: 20px;
-  margin-top:0%;
-  margin-left:0%;
+  position: absolute;
+  top: 0;
+  left: 0;
   text-align:center;
   font-weight:bolder;
   font-size:medium;
   color:white;
-  z-index: 2;
+  z-index: 6;
   background: transparent;
+}
+
+
+#_myProgress {
+  width: 400px;
+  background-color: #000000;
   padding: 20px; 
+  position:relative;
+  z-index: 1;
+  height:20px;
+}
+
+#_myBar {
+  width: 400px;
+  height: 20px;
+  text-align:center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight:bolder;
+  font-size:medium;
+  color:white;
+  z-index: 4;
+  background: #00ff00;
+}
+
+#_progressTimer {
+  width: 400px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align:center;
+  font-weight:bolder;
+  font-size:medium;
+  color:white;
+  z-index: 6;
+  background: transparent;
 }
 

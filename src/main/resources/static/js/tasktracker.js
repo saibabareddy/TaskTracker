@@ -274,15 +274,16 @@ var incomingDate = $("#popup_box #date").val();
 var incomingTime = $("#popup_box #time").val();
 var incomingName = $("#popup_box #name").val();
 var incomingTask = $("#popup_box #task").val();
-var incomingStatus = $("#popup_box #Status").val();
+var incomingStatus = $("#popup_box #status").val();
 var incomingReason = $("#popup_box #reason").val();
 var response ={
 		date : incomingDate,
 		time : incomingTime,
 		name : incomingName,
 		task : incomingTask,
-		reason : incomingReason,
-		status : incomingStatus
+		status : incomingStatus,
+		reason : incomingReason
+		
 }
 console.log(JSON.stringify(response, null, '\t'));
 $.ajax({
@@ -384,6 +385,7 @@ function progressUpdater(htmlElement){
 
 function timer(countDownTime,htmlElement,htmlElement1,htmlElement2){
 	// Update the count down every 1 second
+	var oncein = "yes";
 	var x = setInterval(function() {
 
 	    // Get todays date and time
@@ -400,7 +402,12 @@ function timer(countDownTime,htmlElement,htmlElement1,htmlElement2){
 	    
 	    // Output the result in an element with id="demo"
 	   $(htmlElement2).text(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
+	   
+	   if(oncein)
+	   {
 	   progressUpdater(htmlElement);
+	   oncein="";
+	   }
 	    
 	    // If the count down is over, write some text 
 	    if (distance < 0) {
