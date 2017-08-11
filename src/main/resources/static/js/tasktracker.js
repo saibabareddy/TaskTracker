@@ -462,7 +462,7 @@ function showEvningScrum(){
 		var htmlElement1 ="#eveningScrum";
 		var htmlElement2 =".eveningTime";
 		timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
-	}180000);
+	},180000);
 }
 	
 function showMorningStandup{
