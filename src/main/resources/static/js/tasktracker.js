@@ -465,10 +465,10 @@ function showEvningScrum(){
 	},180000);
 }
 	
-function showMorningStandup{
+function showMorningStandup(){
 	_refreshEmployees();
 	_refreshTasks();
-	setTimeout(function(){
+    setTimeout(function(){
 	  $("#eveningScrum").fadeOut(3000);
 	  $("#standUp").fadeIn(3000);
 	  countDownTime = new Date();
