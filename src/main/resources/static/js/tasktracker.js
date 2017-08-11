@@ -445,9 +445,9 @@ $("#evening").click(function(e){
 
 //logic to run morning show and hide and evening show and hide for 3 minutes each at a interval of 6 minutes 30 seconds for testing
 function showHideToggle(){
-setInterval(function() {
-	showMorningStandup();	
-}, 378000);
+	setInterval(function() {
+		showMorningStandup();	
+	}, 378000);
 }
 
 function showEvningScrum(){
@@ -468,7 +468,6 @@ function showEvningScrum(){
 function showMorningStandup(){
 	_refreshEmployees();
 	_refreshTasks();
-    setTimeout(function(){
 	  $("#eveningScrum").fadeOut(3000);
 	  $("#standUp").fadeIn(3000);
 	  countDownTime = new Date();
@@ -477,9 +476,7 @@ function showMorningStandup(){
 	  var htmlElement1 ="#standUp";
 	  var htmlElement2 =".morningTime";
 	  timer(countDownTime.getTime(),htmlElement,htmlElement1,htmlElement2);
-		showEvningScrum();
-						
-	}, 180000);
+	  showEvningScrum();
 }
 
 $(document).ready(function(){
