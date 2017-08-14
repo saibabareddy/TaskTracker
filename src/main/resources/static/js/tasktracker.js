@@ -144,7 +144,6 @@ function _generateTasksList(name,task){
 }
 
 $(document).on('click', '.saveButton',function(e) {
-	e.preventDefault();
 	var response = {};
     var currentTD = $(this).parents('tr').find('td');   
     console.log($(this).parents('tr').find('#error').text());
@@ -196,7 +195,6 @@ $(document).on('click', '.saveButton',function(e) {
     });
 
 $(document).on('click', '.saveTaskButton',function(e) {
-	e.preventDefault();
 	var response = {};
     var currentTD = $(this).parents('tr').find('td');  
     console.log($(this).parents('tr').find("#_status").val());
@@ -298,7 +296,6 @@ $.ajax({
 });
 
 $(document).on('change', '#_status',function(e) {
-	e.preventDefault();
 	var response = {};
     var currentTD = $(this).parents('tr').find('td');  
     console.log($(this).parents('tr').find("#_status").val());
@@ -368,6 +365,7 @@ function hidepopup()
  $("#popup_box").fadeToggle();
  $("#popup_box").css({"visibility":"hidden","display":"none"});
 }
+
 
 function progressUpdater(htmlElement,start){
 	// set progress bar
@@ -448,7 +446,7 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 02 && d.getUTCHours() <= 03){
+	if(d.getUTCHours() >= 02 && d.getUTCHours() < 03){
 					countDate.setUTCHours(03);
 					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
@@ -462,7 +460,7 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),htmlElement,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 03 && d.getUTCHours() <= 04){
+		 	else if(d.getUTCHours() >= 03 && d.getUTCHours() < 04){
 		 		countDate.setUTCHours(04);
 				countDate.setUTCMinutes(00);
 				countDate.setUTCSeconds(00);
