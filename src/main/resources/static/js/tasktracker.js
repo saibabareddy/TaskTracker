@@ -369,7 +369,7 @@ function hidepopup()
 
 function progressUpdater(htmlElement,start){
 	// set progress bar
-	   var maxTime = 3600000;
+	   var maxTime = 1800000;
 	   var timeoutVal = Math.floor(maxTime/100);
 	   animateUpdate();
 
@@ -446,28 +446,30 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 02 && d.getUTCHours() < 03){
-					countDate.setUTCHours(03);
-					countDate.setUTCMinutes(00);
-					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(02);
+	if(d.getUTCHours() >= 15 && d.getUTCHours() < 16 && d.getUTCMinutes() <=30 ){
+					countDate.setUTCHours(15);
+					countDate.setUTCMinutes(30);
+					countDate.setUTCSeconds(59);
+					timerNow.setUTCHours(15);
 					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
 					 $("#eveningScrum").hide();
 					$("#standUp").fadeIn(3000);
+					$("#startscreen").hide(3000);
 					var htmlElement = ".morning_Timer";
 					var htmlElement1 =".morningTime";
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),htmlElement,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 03 && d.getUTCHours() < 04){
-		 		countDate.setUTCHours(04);
-				countDate.setUTCMinutes(00);
-				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(03);
+		 	else if(d.getUTCHours() >= 21 && d.getUTCHours() < 22 && d.getUTCMinutes() <=30){
+		 		countDate.setUTCHours(21);
+				countDate.setUTCMinutes(30);
+				countDate.setUTCSeconds(59);
+				timerNow.setUTCHours(21);
 				timerNow.setUTCMinutes(00);
 				timerNow.setUTCSeconds(00);
 		 		$("#standUp").hide();
+		 		$("#startscreen").hide(3000);
 		 		$("#eveningScrum").fadeIn(3000);
 		 		var htmlElement = ".evening_Timer";
 				var htmlElement1 =".eveningTime";
@@ -475,6 +477,7 @@ $(document).ready(function(){
 				timer(countDate.getTime(),htmlElement,htmlElement1);	
 		 } else{
 			 $("#standUp").hide();
+			 $("#startscreen").show(3000);
 			 $("#eveningScrum").hide();
 		 }
 	
