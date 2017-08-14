@@ -446,10 +446,10 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 15 && d.getUTCHours() < 17){
-					countDate.setUTCHours(17);
-					countDate.setUTCMinutes(00);
-					countDate.setUTCSeconds(00);
+	if(d.getUTCHours() >= 15 && d.getUTCHours() < 16 && d.getUTCMinutes() <=30 ){
+					countDate.setUTCHours(15);
+					countDate.setUTCMinutes(30);
+					countDate.setUTCSeconds(59);
 					timerNow.setUTCHours(15);
 					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
@@ -461,11 +461,11 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),htmlElement,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 17 && d.getUTCHours() < 19){
-		 		countDate.setUTCHours(19);
-				countDate.setUTCMinutes(00);
-				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(19);
+		 	else if(d.getUTCHours() >= 21 && d.getUTCHours() < 22 && d.getUTCMinutes() <=30){
+		 		countDate.setUTCHours(21);
+				countDate.setUTCMinutes(30);
+				countDate.setUTCSeconds(59);
+				timerNow.setUTCHours(21);
 				timerNow.setUTCMinutes(00);
 				timerNow.setUTCSeconds(00);
 		 		$("#standUp").hide();
