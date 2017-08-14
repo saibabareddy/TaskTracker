@@ -538,13 +538,13 @@ td {
 
 #watch{
   position: absolute;
-  margin: 12% 20%;
+  height: 150px;
+  margin: 12% 47%;
   width:16%;
   background: #222529;
   border-radius: 50% / 10%;
   z-index: 0;
   box-shadow: 0px 5px 10px black;
-  
 }
 
 #band_one{
