@@ -523,5 +523,86 @@ td {
   border-radius: 8px;
 }
 
+#watch h4{
+  position: absolute;
+  font-family: 'Quantico', sans-serif;
+  text-shadow: 1px 1px 8px #9ac0ff;
+  font-size: 30px;
+  color: white;
+  text-indent: 42px;
+  line-height: 60px;
+  z-index: 0;
+ 
+}
+
+#watch{
+  position: absolute;
+  width: 200px;
+  height: 150px;
+  margin: 50px 290px;
+  background: #222529;
+  border-radius: 50% / 10%;
+  z-index: 0;
+  box-shadow: 0px 5px 10px black;
+  
+}
+
+#band_one{
+  position: absolute;
+  width: 650px;
+  height: 50px;
+  border-top-left-radius: 15px 25px;
+  border-top-right-radius: 15px 25px;
+  background: #222529;
+  margin:100px 60px;
+  z-index: -1; 
+  box-shadow: 0px 10px 20px #9ac0ff;
+  margin-right: auto ;
+}
+
+#box{
+  position: absolute;
+  width: 650px;
+  height: 5px;
+  border-bottom-left-radius: 45px 35px;
+  border-bottom-right-radius: 45px 35px;
+  background: #9ac0ff;
+  margin: 150px 60px;
+  z-index: -1;
+  color: white;
+  font-size: 20px;
+  font-family: 'Atomic Age', cursive;
+  box-shadow: 0px 2px 5px black;
+  margin-right: auto ;
+}
+
+#box2{
+  position: absolute;
+  width: 510px;
+  height: 1px;
+  background: #bcc9d7;
+  z-index: -2;
+  margin: 150px 60px;
+  border-bottom-left-radius: 45px 35px;
+  border-bottom-right-radius: 45px 35px;
+  color: white;
+  font-size: 20px;
+  font-family: 'Quantico', sans-serif;
+  text-shadow: 1px 1px 1px black;
+  padding: 70px;
+  box-shadow: 0px 10px 20px #9ac0ff;
+  margin-right: auto ;
+}
+
+#touch_me{
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  font-family: 'Quantico', sans-serif;
+  text-shadow: 1px 1px 1px black;
+  padding: 70px;
+  margin: 155px 290px;
+  margin-right: auto ;
+}
 
 
