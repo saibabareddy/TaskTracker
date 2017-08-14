@@ -1,3 +1,4 @@
+$( document ).ready(function() {
 $("#box2 div").fadeOut(0); 
   $("#box2").mouseenter(function() {
        $(this).animate({
@@ -21,6 +22,7 @@ $("#box2 div").fadeOut(0);
       
       
    });
+  });
 
 
 
