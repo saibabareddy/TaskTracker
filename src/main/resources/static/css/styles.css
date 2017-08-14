@@ -549,7 +549,6 @@ td {
 
 #band_one{
   position: absolute;
-  width: 650px;
   height: 50px;
   border-top-left-radius: 15px 25px;
   border-top-right-radius: 15px 25px;
@@ -562,7 +561,6 @@ td {
 
 #box{
   position: absolute;
-  width: 650px;
   height: 5px;
   border-bottom-left-radius: 45px 35px;
   border-bottom-right-radius: 45px 35px;
@@ -578,7 +576,6 @@ td {
 
 #box2{
   position: absolute;
-  width: 510px;
   height: 1px;
   background: #bcc9d7;
   z-index: -2;
