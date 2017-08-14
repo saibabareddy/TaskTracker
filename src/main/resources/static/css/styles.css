@@ -207,7 +207,7 @@ table {
 }
 
 .tbl-content {
-	height: 570px;
+	height:400px;
 	overflow-x: auto;
 	margin-top: 0px;
 	border: 2px solid rgba(255, 255, 255, 0.3);
@@ -458,7 +458,7 @@ td {
   font-size:medium;
   color:white;
   z-index: 4;
-  background: #00ff00;
+  background: transparent;
 }
 
 #progressTimer {
