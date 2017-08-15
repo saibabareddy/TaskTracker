@@ -399,11 +399,11 @@ function progressUpdater(htmlElement,start){
 	   function updateProgress(percentage) {
 	       $(htmlElement).css("width", percentage + "%");
 	       
-	       if(percentage >= 75)
+	       if(percentage >= 75 && percentage < 90)
 	       {
 	    	   $(htmlElement).css("background","#ff8000");
 	       }
-	       if(percentage >= 90)
+	       else if(percentage >= 90)
 	       {
 	    	   $(htmlElement).css("background","#ff0000");
 	       }
@@ -471,12 +471,12 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 1 && d.getUTCHours() < 2){
-					countDate.setUTCHours(2);
+	if(d.getUTCHours() >= 3 && d.getUTCHours() < 4){
+					countDate.setUTCHours(4);
 					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(1);
-					timerNow.setUTCMinutes(30);
+					timerNow.setUTCHours(3);
+					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
 					$("#eveningScrum").hide();
@@ -488,12 +488,12 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 2 && d.getUTCHours() < 3 ){
-		 		countDate.setUTCHours(3);
+		 	else if(d.getUTCHours() >= 4 && d.getUTCHours() < 5 ){
+		 		countDate.setUTCHours(5);
 				countDate.setUTCMinutes(00);
 				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(2);
-				timerNow.setUTCMinutes(30);
+				timerNow.setUTCHours(4);
+				timerNow.setUTCMinutes(00);
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();
 		 		$("#standUp").hide();
