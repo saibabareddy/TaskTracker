@@ -190,12 +190,12 @@ $(document).on('click', '.saveButton',function(e) {
   		    				var message = "Task Saved";
   		    				$('#standUp .error').addClass("alert alert-success");
 		    				$('#standUp .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
-		    				setTimeout(location.reload(),6000);
   		    				}
   		    				if(data.status === "alreadyExists")
   		    				{
   		    					var message = "Already Saved your task";
-  		    					messagepopup(message);
+  		    					$('#standUp .error').addClass("alert alert-danger");
+  		    		    	  $('#standUp .error').text("Already Saved your task");
   		    					 
   		    				}
   		    },
@@ -251,7 +251,8 @@ $(document).on('click', '.saveTaskButton',function(e) {
   				if(data.status === "alreadyExists")
   				{
   					var message= "Already Saved your Status";
-  					messagepopup(message);
+  					$('#eveningScrum .error').addClass("alert alert-danger");
+  			  	  $('#eveningScrum .error').text("Already Saved your Status");
   				}
   		    },
   			'error' : function(XMLHttpRequest, textStatus, errorThrown){
@@ -299,13 +300,12 @@ $.ajax({
 	      				if(data.status === "true")
 	      				{
 	      				var message = "Status Saved";
-	      				messagepopup(message);
-	      				setTimeout(location.reload(),6000);
+	      				$(popup_box).append("</br><div class='alert alert-success'><strong>Saved</strong></div>");
 	      				}
 	      				if(data.status === "alreadyExists")
 	      				{
 	      					var message = "Already Saved your Status";
-	      					messagepopup(message);
+	      					$(popup_box).append("</br><div class='alert alert-danger'><strong>Already Exists</strong></div>");
 	      				}
 	    				
 	    },
@@ -315,7 +315,7 @@ $.ajax({
 	  });
 }
 else{
-	$(popup_box).append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>")
+	$(popup_box).append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>");
 }
 });
 
@@ -471,11 +471,11 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 3 && d.getUTCHours() < 4){
-					countDate.setUTCHours(4);
-					countDate.setUTCMinutes(00);
+	if(d.getUTCHours() >= 15 && d.getUTCHours() < 16 && d.getUTCMinutes() <=30){
+					countDate.setUTCHours(15);
+					countDate.setUTCMinutes(30);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(3);
+					timerNow.setUTCHours(15);
 					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
@@ -488,11 +488,11 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 4 && d.getUTCHours() < 5 ){
-		 		countDate.setUTCHours(5);
-				countDate.setUTCMinutes(00);
+		 	else if(d.getUTCHours() >= 21 && d.getUTCHours() < 22 && d.getUTCMinutes() <=30 ){
+		 		countDate.setUTCHours(21);
+				countDate.setUTCMinutes(30);
 				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(4);
+				timerNow.setUTCHours(22);
 				timerNow.setUTCMinutes(00);
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();
