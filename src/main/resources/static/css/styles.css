@@ -152,9 +152,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 #popup_box #cancel_button {
 	float: right;
-	margin-top: 4px;
+	margin-top: -70px;
 	margin-bottom: 4px;
-	margin-right: 5px;
+	margin-right: -27px;
 	background-color: grey;
 	border: none;
 	color: white;
