@@ -472,10 +472,10 @@ $(document).ready(function(){
 	
 	
 	if(d.getUTCHours() >= 15 && d.getUTCHours() < 17){
-					countDate.setUTCHours(15);
+					countDate.setUTCHours(17);
 					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(17);
+					timerNow.setUTCHours(15);
 					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
