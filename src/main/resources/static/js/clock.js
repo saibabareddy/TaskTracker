@@ -2,24 +2,23 @@ $( document ).ready(function() {
 $("#box2 div").fadeOut(0); 
   $("#box2").mouseenter(function() {
        $(this).animate({
-           height: "+=250px"});
+           height: "+=150px"});
              $("#box2 div").fadeIn(500);
              $("#touch_me").fadeOut(0);
    });
   //
   $("#touch_me").mouseenter(function() {
        $("#box2").animate({
-           height: "+=250px"});
+           height: "+=150px"});
              $("#box2 div").fadeIn(500);
              $("#touch_me").fadeOut(0);
   });
   //
    $("#box2").mouseleave(function() {
        $(this).animate({
-           height: "-=250px"});
+           height: "-=150px"});
             $("#box2 div").fadeOut(0); 
             $("#touch_me").fadeIn(500);
-      
       
    });
   });

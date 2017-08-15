@@ -250,8 +250,10 @@ td {
 .drop-shadow {
 	position: relative;
 	float: left;
-	width: 40%;
+	width: 80%;
+	height:80%;
 	position: fixed; left : 20%; right : 20%; top : 30%;
+	margin: 10% 10%;
 	padding: 1em;
 	margin: 2em 10px 4em;
 	background: #fff;
@@ -261,9 +263,9 @@ td {
 		rgba(0, 0, 0, 0.1) inset;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)
 		inset;
-	left: 20%;
-	right: 20%;
-	top: 30%;
+	left: 10%;
+	right: 10%;
+	top: 10%;
 }
 
 .drop-shadow:before, .drop-shadow:after {
@@ -461,7 +463,7 @@ td {
   font-size:medium;
   color:white;
   z-index: 4;
-  background: #00ff00;
+  background: transparent;
   border-radius: 8px;
 }
 
@@ -503,7 +505,7 @@ td {
   font-size:medium;
   color:white;
   z-index: 4;
-  background: #00ff00;
+  background: transparent;
   border-radius: 8px;
 }
 
@@ -528,7 +530,7 @@ td {
   font-family: 'Quantico', sans-serif;
   text-shadow: 1px 1px 8px #9ac0ff;
   font-size: 30px;
-  margin-left:6.5%;
+  margin:12% 16%;
   color: white;
   text-indent: 42px;
   line-height: 60px;
@@ -539,8 +541,8 @@ td {
 #watch{
   position: absolute;
   height: 150px;
-  margin: 12% 47%;
-  width:16%;
+  margin: 2.5% 40%;
+  width:20%;
   background: #222529;
   border-radius: 50% / 10%;
   z-index: 0;
@@ -553,7 +555,7 @@ td {
   border-top-left-radius: 15px 25px;
   border-top-right-radius: 15px 25px;
   background: #222529;
-  margin: 16% 30%;
+  margin: 6% 24%;
   width:50%;
   z-index: -1; 
   box-shadow: 0px 10px 20px #9ac0ff;
@@ -566,7 +568,7 @@ td {
   border-bottom-left-radius: 45px 35px;
   border-bottom-right-radius: 45px 35px;
   background: #9ac0ff;
-  margin: 20% 30%;
+  margin: 10% 24%;
   width:50%;
   z-index: -1;
   color: white;
@@ -578,10 +580,10 @@ td {
 
 #box2{
   position: absolute;
-  height: 1px;
+  height: 0px;
   background: #bcc9d7;
   z-index: -2;
-  margin: 20% 30%;
+  margin: 8% 24%;
   width:50%;
   border-bottom-left-radius: 45px 35px;
   border-bottom-right-radius: 45px 35px;
@@ -601,7 +603,7 @@ td {
   font-family: 'Quantico', sans-serif;
   text-shadow: 1px 1px 1px black;
   padding: 70px;
-  margin: 20% 47.5%;
+  margin: 10% 42%;
   width:15%;
   margin-right: auto ;
 }

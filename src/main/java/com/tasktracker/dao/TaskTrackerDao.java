@@ -117,6 +117,8 @@ public class TaskTrackerDao {
 				Tasks task = new Tasks();
 				task.setName(rs.getString("name"));
 				task.setTask(rs.getString("task"));
+				task.setStatus(rs.getString("status"));
+				task.setReason(rs.getString("task"));
 				list.add(task);
 			}
 		} catch (SQLException e) {

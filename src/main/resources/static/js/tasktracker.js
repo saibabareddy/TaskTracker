@@ -1,5 +1,6 @@
 var employee ={};
 var user ={};
+var maxTime = 0;
 
 function addZero(i) {
     if (i < 10) {
@@ -84,7 +85,8 @@ function _refreshTasks() {
 		    'type' : 'GET',
 		    'success' : function(data) {
 		    	$.each(data, function(index) {
-		    		_generateTasksList(data[index].name,data[index].task);
+		    		console.log(data[index].name,data[index].task,data[index].status);
+		    		_generateTasksList(data[index].name,data[index].task,data[index].status);
 		            });
 		    },
 			'error' : function(XMLHttpRequest, textStatus, errorThrown){
@@ -132,13 +134,27 @@ function _generateEmpList(value){
 
 
 
-function _generateTasksList(name,task){
+function _generateTasksList(name,task,status){
 	var row=[];
 	row.length=0;
 	row.push("<td  id='name'>"+name+"</td>");
 	row.push("<td id='task'>"+task+"</td>");
+	if(status){
+		if(status === "true")
+		{
+			row.push("<td id='_status'> Completed </td>");
+		}
+		else
+		{
+			row.push("<td id='_status'> Not Completed </td>");
+		}
+		
+		row.push('<td><button type="button" class="saveTaskButton btn btn-success btn-lg" disabled="disabled" id="TaskStatusSubmit">Save <span class="glyphicon glyphicon-floppy-save"></span></button></td>"');
+	}
+	else{
 	row.push('<td><select id="_status"><option value="" disabled selected="selected" style="display:none;">Label</option><option value="true">Completed</option><option value="false">Not Completed</option></select></td>');
 	row.push('<td><button type="button" class="saveTaskButton btn btn-success btn-lg" id="TaskStatusSubmit">Save <span class="glyphicon glyphicon-floppy-save"></span></button></td>"');
+	}
 	$("<tr/>",{ html:row.join("") }).appendTo("#tasksTable tbody");
 	
 }
@@ -174,6 +190,7 @@ $(document).on('click', '.saveButton',function(e) {
   		    				var message = "Task Saved";
   		    				$('#standUp .error').addClass("alert alert-success");
 		    				$('#standUp .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
+		    				setTimeout(location.reload(),6000);
   		    				}
   		    				if(data.status === "alreadyExists")
   		    				{
@@ -227,8 +244,9 @@ $(document).on('click', '.saveTaskButton',function(e) {
   				if(data.status === "true")
   				{
   					var message = "Status Saved";
-  					 $('#standUp .error').addClass("alert alert-success");
-   					$('#standUp .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
+  					 $('#eveningScrum .error').addClass("alert alert-success");
+   					$('#eveningScrum .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
+   					setTimeout(location.reload(),6000);
   				}
   				if(data.status === "alreadyExists")
   				{
@@ -242,8 +260,8 @@ $(document).on('click', '.saveTaskButton',function(e) {
   		  });
     }
     else{
-    	 $('#standUp .error').addClass("alert alert-danger");
-  	  $('#standUp .error').text(" Task should not be null");
+    	 $('#eveningScrum .error').addClass("alert alert-danger");
+  	  $('#eveningScrum .error').text(" Task should not be null");
     }
       
     
@@ -268,6 +286,8 @@ var response ={
 		
 }
 console.log(JSON.stringify(response, null, '\t'));
+if(incomingReason)
+{
 $.ajax({
 	    'url' : '/tasktracker/tasks/updateTasks',
 	    'type' : 'POST',
@@ -280,6 +300,7 @@ $.ajax({
 	      				{
 	      				var message = "Status Saved";
 	      				messagepopup(message);
+	      				setTimeout(location.reload(),6000);
 	      				}
 	      				if(data.status === "alreadyExists")
 	      				{
@@ -292,7 +313,10 @@ $.ajax({
 			console.log(textStatus);
 		}
 	  });
-
+}
+else{
+	$(popup_box).append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>")
+}
 });
 
 $(document).on('change', '#_status',function(e) {
@@ -369,18 +393,17 @@ function hidepopup()
 
 function progressUpdater(htmlElement,start){
 	// set progress bar
-	   var maxTime = 7200000;
 	   var timeoutVal = Math.floor(maxTime/100);
 	   animateUpdate();
 
 	   function updateProgress(percentage) {
 	       $(htmlElement).css("width", percentage + "%");
 	       
-	       if(percentage === 80)
+	       if(percentage >= 75)
 	       {
 	    	   $(htmlElement).css("background","#ff8000");
 	       }
-	       if(percentage === 95)
+	       if(percentage >= 90)
 	       {
 	    	   $(htmlElement).css("background","#ff0000");
 	       }
@@ -429,6 +452,8 @@ function timer(countDownTime,htmlElement,htmlElement1){
 	    if (distance < 0) {
 	        clearInterval(x);
 	        $(htmlElement1).text("Closing");
+	        $(htmlElement).fadeOut(3000);
+	        $("#startscreen").fadeIn(3000);
 	    }
 	}, 1000);
 }
@@ -446,38 +471,42 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 15 && d.getUTCHours() < 17){
-					countDate.setUTCHours(17);
+	if(d.getUTCHours() >= 1 && d.getUTCHours() < 2){
+					countDate.setUTCHours(2);
 					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(15);
-					timerNow.setUTCMinutes(00);
+					timerNow.setUTCHours(1);
+					timerNow.setUTCMinutes(30);
 					timerNow.setUTCSeconds(00);
-					 $("#eveningScrum").hide();
+					maxTime = countDate.getTime() - timerNow.getTime();
+					$("#eveningScrum").hide();
 					$("#standUp").fadeIn(3000);
-					$("#startscreen").hide(3000);
+					$("#startscreen").hide();
 					var htmlElement = ".morning_Timer";
 					var htmlElement1 =".morningTime";
+					var hidehtml="#standUp";
 					progressUpdater(htmlElement,timerNow.getTime());
-					timer(countDate.getTime(),htmlElement,htmlElement1);
+					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 17 && d.getUTCHours() < 19 ){
-		 		countDate.setUTCHours(19);
+		 	else if(d.getUTCHours() >= 2 && d.getUTCHours() < 3 ){
+		 		countDate.setUTCHours(3);
 				countDate.setUTCMinutes(00);
 				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(17);
-				timerNow.setUTCMinutes(00);
+				timerNow.setUTCHours(2);
+				timerNow.setUTCMinutes(30);
 				timerNow.setUTCSeconds(00);
+				maxTime = countDate.getTime() - timerNow.getTime();
 		 		$("#standUp").hide();
-		 		$("#startscreen").hide(3000);
+		 		$("#startscreen").hide();
 		 		$("#eveningScrum").fadeIn(3000);
 		 		var htmlElement = ".evening_Timer";
 				var htmlElement1 =".eveningTime";
+				var hidehtml="#eveningScrum";
 				progressUpdater(htmlElement,timerNow.getTime());
-				timer(countDate.getTime(),htmlElement,htmlElement1);	
+				timer(countDate.getTime(),hidehtml,htmlElement1);	
 		 } else{
 			 $("#standUp").hide();
-			 $("#startscreen").show(3000);
+			 $("#startscreen").fadeIn(3000);
 			 $("#eveningScrum").hide();
 		 }
 	
