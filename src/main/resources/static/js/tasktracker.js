@@ -471,11 +471,11 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 15 && d.getUTCHours() < 16 && d.getUTCMinutes() <=30){
-					countDate.setUTCHours(15);
-					countDate.setUTCMinutes(30);
+	if(d.getUTCHours() >= 16 && d.getUTCHours() < 17 && d.getUTCMinutes() <=60){
+					countDate.setUTCHours(16);
+					countDate.setUTCMinutes(60);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(15);
+					timerNow.setUTCHours(16);
 					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
@@ -488,11 +488,11 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 21 && d.getUTCHours() < 22 && d.getUTCMinutes() <=30 ){
-		 		countDate.setUTCHours(21);
-				countDate.setUTCMinutes(30);
+		 	else if(d.getUTCHours() >= 17 && d.getUTCHours() < 18 && d.getUTCMinutes() <=60 ){
+		 		countDate.setUTCHours(17);
+				countDate.setUTCMinutes(60);
 				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(22);
+				timerNow.setUTCHours(17);
 				timerNow.setUTCMinutes(00);
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();

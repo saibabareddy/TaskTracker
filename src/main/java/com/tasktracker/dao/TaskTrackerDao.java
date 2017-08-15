@@ -401,20 +401,20 @@ public class TaskTrackerDao {
 	}
 	
 	
-	private Connection getConnection() {
-			
-			Connection conn = null;
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				String url = "jdbc:mysql://tasktracker.cc04xsvfdyut.us-east-1.rds.amazonaws.com:3306/TASKTRACKER";
-				conn = DriverManager.getConnection(url, "TaskTracker", "tasktracker");
-				System.out.println("COnnection Successful");
-			} catch (Exception e) {
-				// e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-			return conn;
+private Connection getConnection() {
+		
+		Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://wmsmysql.cun5uvzp5qky.us-east-1.rds.amazonaws.com:3306/TASKTRACKER";
+			conn = DriverManager.getConnection(url, "wmsmysqladmin", "WMSMySQLPass1");
+			System.out.println("COnnection Successful");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
 		}
+		return conn;
+	}
 	
 	
 	private static void close(Connection con) {
