@@ -442,13 +442,14 @@ td {
 }
 
 #myProgress {
-	margin:auto;
+	margin-top:15px;
   width: 400px;
   height:26px;
   background-color: #000000; 
   position:relative;
   z-index: 1;
   border-radius: 8px;
+  float:right;
 }
 
 #myBar {
@@ -484,13 +485,14 @@ td {
 
 
 #_myProgress {
-	margin:auto;
+	margin-top:15px;
   width: 400px;
   height:26px;
   background-color: #000000; 
   position:relative;
   z-index: 1;
   border-radius: 8px;
+  float:right;
 }
 
 #_myBar {

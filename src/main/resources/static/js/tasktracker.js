@@ -190,7 +190,7 @@ $(document).on('click', '.saveButton',function(e) {
   		    				var message = "Task Saved";
   		    				$('#standUp .error').addClass("alert alert-success");
 		    				$('#standUp .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
-  		    				setTimeout(function() { location.reload();}, 5000);
+  		    				setTimeout(function() { location.reload();}, 2000);
 						}
   		    				if(data.status === "alreadyExists")
   		    				{
@@ -247,7 +247,7 @@ $(document).on('click', '.saveTaskButton',function(e) {
   					var message = "Status Saved";
   					 $('#eveningScrum .error').addClass("alert alert-success");
    					$('#eveningScrum .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
-   					setTimeout(function() { location.reload();}, 5000);
+   					setTimeout(function() { location.reload();}, 2000);
   				}
   				if(data.status === "alreadyExists")
   				{
@@ -307,8 +307,8 @@ $.ajax({
 	      					var message = "Already Saved your Status";
 	      					$("#popup_box").append("</br><div class='alert alert-danger'><strong>Already Exists</strong></div>");
 	      				}
-		    			setTimeout(function() { hidepopup();}, 5000);
-		    			setTimeout(function() { location.reload();}, 5000);
+		    			setTimeout(function() { hidepopup();}, 1500);
+		    			setTimeout(function() { location.reload();}, 2000);
 		    			
 	    				
 	    },
@@ -319,7 +319,7 @@ $.ajax({
 }
 else{
 	$("#popup_box").append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>");
-	setTimeout(function() { location.reload();}, 5000);
+	//setTimeout(function() { location.reload();}, 5000);
 }
 });
 
@@ -475,12 +475,12 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 18 && d.getUTCHours() < 19 && d.getUTCMinutes() <=60){
-					countDate.setUTCHours(18);
+	if(d.getUTCHours() >= 19 && d.getUTCHours() < 20 && d.getUTCMinutes() <=60){
+					countDate.setUTCHours(19);
 					countDate.setUTCMinutes(60);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(18);
-					timerNow.setUTCMinutes(00);
+					timerNow.setUTCHours(19);
+					timerNow.setUTCMinutes(45);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
 					$("#eveningScrum").hide();
@@ -492,12 +492,12 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 19 && d.getUTCHours() < 20 && d.getUTCMinutes() <=60 ){
-		 		countDate.setUTCHours(19);
-				countDate.setUTCMinutes(60);
+		 	else if(d.getUTCHours() >= 20 && d.getUTCHours() < 21 && d.getUTCMinutes() <=30 ){
+		 		countDate.setUTCHours(20);
+				countDate.setUTCMinutes(30);
 				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(19);
-				timerNow.setUTCMinutes(00);
+				timerNow.setUTCHours(20);
+				timerNow.setUTCMinutes(15);
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();
 		 		$("#standUp").hide();
