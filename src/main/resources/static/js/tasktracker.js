@@ -300,12 +300,12 @@ $.ajax({
 	      				if(data.status === "true")
 	      				{
 	      				var message = "Status Saved";
-	      				$(popup_box).append("</br><div class='alert alert-success'><strong>Saved</strong></div>");
+	      				$(#popup_box).append("</br><div class='alert alert-success'><strong>Saved</strong></div>");
 	      				}
 	      				if(data.status === "alreadyExists")
 	      				{
 	      					var message = "Already Saved your Status";
-	      					$(popup_box).append("</br><div class='alert alert-danger'><strong>Already Exists</strong></div>");
+	      					$(#popup_box).append("</br><div class='alert alert-danger'><strong>Already Exists</strong></div>");
 	      				}
 	    				
 	    },
@@ -315,7 +315,7 @@ $.ajax({
 	  });
 }
 else{
-	$(popup_box).append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>");
+	$(#popup_box).append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>");
 }
 });
 
