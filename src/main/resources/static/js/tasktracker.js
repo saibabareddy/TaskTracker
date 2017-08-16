@@ -475,12 +475,12 @@ $(document).ready(function(){
 	 	var timerNow = new Date();
 	
 	
-	if(d.getUTCHours() >= 19 && d.getUTCHours() < 20 && d.getUTCMinutes() <=60){
-					countDate.setUTCHours(19);
-					countDate.setUTCMinutes(60);
+	if(d.getUTCHours() >= 18 && d.getUTCHours() < 21 && d.getUTCMinutes() <=00){
+					countDate.setUTCHours(18);
+					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(19);
-					timerNow.setUTCMinutes(45);
+					timerNow.setUTCHours(18);
+					timerNow.setUTCMinutes(00);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
 					$("#eveningScrum").hide();
@@ -492,12 +492,12 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 20 && d.getUTCHours() < 21 && d.getUTCMinutes() <=30 ){
-		 		countDate.setUTCHours(20);
-				countDate.setUTCMinutes(30);
+		 	else if(d.getUTCHours() >= 21 && d.getUTCHours() < 24){
+		 		countDate.setUTCHours(21);
+				countDate.setUTCMinutes(00);
 				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(20);
-				timerNow.setUTCMinutes(15);
+				timerNow.setUTCHours(21);
+				timerNow.setUTCMinutes(00);
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();
 		 		$("#standUp").hide();

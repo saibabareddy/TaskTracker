@@ -609,5 +609,10 @@ td {
   width:15%;
   margin-right: auto ;
 }
-
+#startscreen{
+  padding-right: 433px;
+  padding-left: 0px;
+  *zoom: 1;
+}
+}
 
