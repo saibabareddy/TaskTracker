@@ -5,37 +5,48 @@
 
 <body>
 	<!-- <div th:replace="common/navbar :: common-navbar"></div> -->
-	<div align="center" class="container-fluid" id="startscreen">
-		<div id="band_one"></div>
+	<div  id="startscreen">
+	<!-- 	<div id="band_one"></div>
 		<div id="watch">
 			<h4>
-				<span id="time"/>
+				<span id="time"> </span>
 			</h4>
 		</div>
 		<div id="box"></div>
 		<div id="box2">
 			<div align="center" class="row">
-				<h2>Stand Up Screen is available at 10 am CST</h2>
+				<h2>Morning Roll Up Screen is available at 10 am CST</h2>
 			</div>
 			<div align="center" class="row">
 				<h2>Evening Scrum Screen is available at 12 pm CST</h2>
 			</div>
 
 		</div>
-		<div id="touch_me">Task Tracker</div>
+		<div id="touch_me"> Task Tracker </div> -->
+				<div id="header">
+			<div align="right" class="row">
+				<h2>Morning Roll Up Screen is available at 10 am CST</h2>
+			</div>
+			<div align="right" class="row">
+				<h2>Evening Scrum Screen is available at 4 pm CST</h2>
+			</div>
+
+		</div>
+		<img alt="Katalyst" src="images/Katalyst.png"></img>
 	</div>
 
 	<div class="container-fluid">
 		<div id="standUp">
-			<br />
+	
 			<div>
+			<img alt="Katalyst" src="images/KTlogo1.png" height="150" width="150"></img>
 				<div id="myProgress">
 					<div class="morning_Timer" id="myBar">
 						<div id="progressTimer" class="morningTime"></div>
 					</div>
 				</div>
 			</div>
-			<br />
+		
 			<div class="error"></div>
 			<div class="tbl-header">
 				<table cellpadding="0" cellspacing="0" border="0">
@@ -56,15 +67,16 @@
 		</div>
 
 		<div id="eveningScrum">
-			<br />
+
 			<div>
+			<img class="logo" alt="Katalyst" src="images/KTlogo1.png" height="150" width="150"></img>
 				<div id="_myProgress">
 					<div class="evening_Timer" id="_myBar">
 						<div id="_progressTimer" class="eveningTime"></div>
 					</div>
 				</div>
 			</div>
-			<br />
+	
 			<div class="error"></div>
 			<div class="tbl-header">
 				<table cellpadding="0" cellspacing="0" border="0">
@@ -90,6 +102,7 @@
 	<div align="center">
 		<div id="popup_box" class="drop-shadow raised">
 			<br /> <br />
+				<input type="button" id="cancel_button" value="X" /> <br /> <br />
 			<div>
 				Employee Name : <input type="text" id="name" disabled="true" />
 			</div>
@@ -99,14 +112,14 @@
 			<div>
 				<input type="hidden" id="status" disabled="true" />
 			</div>
-			<input type="text" id="reason"
+			<textarea rows="4" cols="50" id="reason"
 				placeholder="Enter reason for tasks Incompletion" /> <input
 				type="hidden" id="time" /> <input type="hidden" id="date" />
-
+               
 			<div>
 				<button type="button" id="reasonSubmit">Save</button>
 			</div>
-			<input type="button" id="cancel_button" value="X" /> <br /> <br />
+		
 		</div>
 	</div>
 

@@ -190,12 +190,13 @@ $(document).on('click', '.saveButton',function(e) {
   		    				var message = "Task Saved";
   		    				$('#standUp .error').addClass("alert alert-success");
 		    				$('#standUp .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
-  		    				}
+  		    				setTimeout(function() { location.reload();}, 2000);
+						}
   		    				if(data.status === "alreadyExists")
   		    				{
   		    					var message = "Already Saved your task";
   		    					$('#standUp .error').addClass("alert alert-danger");
-  		    		    	  $('#standUp .error').text("Already Saved your task");
+  		    		    	                $('#standUp .error').text("Already Saved your task");
   		    					 
   		    				}
   		    },
@@ -246,7 +247,7 @@ $(document).on('click', '.saveTaskButton',function(e) {
   					var message = "Status Saved";
   					 $('#eveningScrum .error').addClass("alert alert-success");
    					$('#eveningScrum .error').html('<div><span class="glyphicon glyphicon-ok-circle"></span> Saved</div>');
-   					setTimeout(location.reload(),6000);
+   					setTimeout(function() { location.reload();}, 2000);
   				}
   				if(data.status === "alreadyExists")
   				{
@@ -295,7 +296,6 @@ $.ajax({
 	    'data' : JSON.stringify(response),
 	    'contentType': 'application/json',
 	    'success' : function(data) {
-	    	 			hidepopup();
 	    	 			console.log(data.status);
 	      				if(data.status === "true")
 	      				{
@@ -307,6 +307,9 @@ $.ajax({
 	      					var message = "Already Saved your Status";
 	      					$("#popup_box").append("</br><div class='alert alert-danger'><strong>Already Exists</strong></div>");
 	      				}
+		    			setTimeout(function() { hidepopup();}, 1500);
+		    			setTimeout(function() { location.reload();}, 2000);
+		    			
 	    				
 	    },
 		'error' : function(XMLHttpRequest, textStatus, errorThrown){
@@ -316,6 +319,7 @@ $.ajax({
 }
 else{
 	$("#popup_box").append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>");
+
 }
 });
 
@@ -470,13 +474,11 @@ $(document).ready(function(){
 	 	var countDate = new Date();
 	 	var timerNow = new Date();
 	
-	
-	if(d.getUTCHours() >= 15 && d.getUTCHours() < 17){
-					countDate.setUTCHours(17);
+
 					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
-					timerNow.setUTCHours(15);
-					timerNow.setUTCMinutes(00);
+					timerNow.setUTCHours(04);
+					timerNow.setUTCMinutes(30);
 					timerNow.setUTCSeconds(00);
 					maxTime = countDate.getTime() - timerNow.getTime();
 					$("#eveningScrum").hide();
@@ -488,12 +490,7 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 17 && d.getUTCHours() < 19){
-		 		countDate.setUTCHours(19);
-				countDate.setUTCMinutes(00);
-				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(17);
-				timerNow.setUTCMinutes(00);
+
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();
 		 		$("#standUp").hide();
