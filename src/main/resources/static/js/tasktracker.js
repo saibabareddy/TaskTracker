@@ -319,7 +319,7 @@ $.ajax({
 }
 else{
 	$("#popup_box").append("</br><div class='alert alert-danger'><strong>Reason cannot be empty</strong></div>");
-	//setTimeout(function() { location.reload();}, 5000);
+
 }
 });
 
@@ -474,9 +474,7 @@ $(document).ready(function(){
 	 	var countDate = new Date();
 	 	var timerNow = new Date();
 	
-	
-	if(d.getUTCHours() >= 4 && d.getUTCHours() < 5 && d.getUTCMinutes() >=30){
-					countDate.setUTCHours(05);
+
 					countDate.setUTCMinutes(00);
 					countDate.setUTCSeconds(00);
 					timerNow.setUTCHours(04);
@@ -492,12 +490,7 @@ $(document).ready(function(){
 					progressUpdater(htmlElement,timerNow.getTime());
 					timer(countDate.getTime(),hidehtml,htmlElement1);
 		 	}
-		 	else if(d.getUTCHours() >= 10 && d.getUTCHours() < 11 d.getUTCMinutes() >=30){
-		 		countDate.setUTCHours(11);
-				countDate.setUTCMinutes(00);
-				countDate.setUTCSeconds(00);
-				timerNow.setUTCHours(10);
-				timerNow.setUTCMinutes(30);
+
 				timerNow.setUTCSeconds(00);
 				maxTime = countDate.getTime() - timerNow.getTime();
 		 		$("#standUp").hide();
